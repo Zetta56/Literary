@@ -2,14 +2,17 @@ const express = require("express"),
 	app = express(),
 	bodyParser = require("body-parser"),
 	mongoose = require("mongoose"),
+	methodOverride = require("method-override"),
+	flash = require("connect-flash"),
 	session = require("express-session"),
 	passport = require("passport"),
 	LocalStrategy = require("passport-local"),
 	passportLocalMongoose = require("passport-local-mongoose");
 
-mongoose.connect("mongodb://localhost/literary", {useNewUrlParser: true, useUnifiedTopology: true})
+require("dotenv").config();
+mongoose.connect(process.env.DatabaseURL || "mongodb://localhost/literary", {useNewUrlParser: true, useUnifiedTopology: true})
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", (req, res) => {
