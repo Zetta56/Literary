@@ -19,6 +19,10 @@ app.get("/", (req, res) => {
 	res.render("landing");
 });
 
+app.get("/literature", (req, res) => {
+	res.render("literature/index");
+});
+
 app.listen(process.env.PORT || 3000, () => {
 	console.log("Server Started!");
 });
