@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
 	</head>
 	<body>
-		<div class="ui fixed inverted menu">
+		<div class="ui inverted menu">
 			<div class="ui container">
 				<a href="/" class="header item">Literary</a>
 				<a href="/literature" class="item">Literature</a>
@@ -16,4 +16,10 @@
 				</div>
 			</div>
 		</div>
+		<% if(error.length > 0) { %>
+			<div class="ui negative message"><%= error %></div>
+		<% } %>
+		<% if(success.length > 0) { %>
+			<div class="ui positive message"><%= success %></div>
+		<% } %>
 		<div id="mainContainer" class="ui container">

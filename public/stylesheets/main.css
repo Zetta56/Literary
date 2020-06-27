@@ -1,9 +1,23 @@
+.ui.inverted.menu {
+	margin: 0;
+}
+
 .item {
 	font-size: 1.25rem;
 }
 
-#mainContainer {
-	margin-top: 75px;
+.ui.message {
+	margin: 0;
+	text-align: center;
+}
+
+.ui.massive.message {
+	margin: 0;
+	padding: 100px 25%;
+}
+
+.ui.card {
+	width: 30%;
 }
 
 #formTitle {
