@@ -1,3 +1,16 @@
 .item {
 	font-size: 1.25rem;
 }
+
+#mainContainer {
+	margin-top: 75px;
+}
+
+#formTitle {
+	text-align: center;
+}
+
+#formBody {
+	width: 60%;
+	margin: 30px auto;
+}

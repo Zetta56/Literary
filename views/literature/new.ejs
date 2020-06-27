@@ -1,0 +1,18 @@
+<%- include("../partials/header") %>
+
+<div class="row">
+	<h1 id="formTitle">Write a New Piece</h1>
+	<form id="formBody" class="ui form" action="/literature" method="POST">
+		<div class="field">
+			<label for="title">Title</label>
+			<input id="title" type="text" placeholder="Title" name="piece[title]">
+		</div>
+		<div class="field">
+			<label for="body">Body</label>
+			<textarea id="body" placeholder="Type your piece here..." name="piece[body]"></textarea>
+		</div>
+		<button class="ui primary button">Submit</button>
+	</form>
+</div>
+
+<%- include("../partials/footer") %>

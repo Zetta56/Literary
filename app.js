@@ -23,6 +23,10 @@ app.get("/literature", (req, res) => {
 	res.render("literature/index");
 });
 
+app.get("/literature/new", (req, res) => {
+	res.render("literature/new");
+});
+
 app.listen(process.env.PORT || 3000, () => {
 	console.log("Server Started!");
 });
