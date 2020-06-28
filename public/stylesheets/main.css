@@ -1,3 +1,4 @@
+/* Header */
 .ui.inverted.menu {
 	margin: 0;
 }
@@ -11,14 +12,32 @@
 	text-align: center;
 }
 
+#mainContainer {
+	margin-top: 20px;
+}
+
+/* Pieces Index */
+
 .ui.massive.message {
 	margin: 0;
 	padding: 100px 25%;
 }
 
-.ui.card {
+#gallery {
+	margin-top: 20px;
+	height: 1500px;
+	display: flex;
+	flex-flow: column wrap;
+	align-content: flex-start;
+}
+
+#gallery .ui.card {
+	display: table;
+	margin: 1.6%;
 	width: 30%;
 }
+
+/* Forms */
 
 #formTitle {
 	text-align: center;
