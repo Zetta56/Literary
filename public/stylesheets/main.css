@@ -20,7 +20,7 @@
 
 .ui.massive.message {
 	margin: 0;
-	padding: 100px 25%;
+	padding: 100px 20%;
 }
 
 #gallery {
@@ -37,6 +37,32 @@
 	width: 30%;
 }
 
+@media only screen and (max-width: 1200px) {
+	#gallery {
+		height: 1900px;
+	}
+	#gallery .ui.card {
+		width: 50%;
+	}
+}
+@media only screen and (max-width: 992px) {
+	.ui.massive.message {
+		padding: 50px 8%;
+	}
+	#gallery {
+		height: 2200px;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#gallery {
+		height: 100%;
+	}
+	#gallery .ui.card {
+		width: 100%;
+	}
+}
+	
 /* Forms */
 
 #formTitle {

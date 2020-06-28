@@ -29,25 +29,25 @@
 		</div>
 		<div class="ui container">
 			<div id="gallery">
-			<% pieces.forEach(piece => { %>
-				<div class="ui card">
-					<div class="content">
-						<div class="header">
-							<h2><%= piece["title"] %></h2>
-						</div>
-						<div class="meta">
-							<%= moment(piece["created"]).fromNow() %>
-						</div>
-						<div class="description">
-							<p class="ui medium header"><%= piece["body"].slice(0, 500) %>
-								<% if(piece["body"].length > 500) { %>
-								...
-								<% } %>
-							</p>
+				<% pieces.forEach(piece => { %>
+					<div class="ui card">
+						<div class="content">
+							<div class="header">
+								<h2><%= piece["title"] %></h2>
+							</div>
+							<div class="meta">
+								<%= moment(piece["created"]).fromNow() %>
+							</div>
+							<div class="description">
+								<p class="ui medium header"><%= piece["body"].slice(0, 500) %>
+									<% if(piece["body"].length > 500) { %>
+									...
+									<% } %>
+								</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			<% }) %>
+				<% }) %>
 			</div>
 
 <%- include("../partials/footer") %>
