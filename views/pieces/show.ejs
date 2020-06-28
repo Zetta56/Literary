@@ -1,0 +1,11 @@
+<%- include("../partials/header") %>
+
+<h1 class="ui header"><%= piece["title"] %></h1>
+<p><%= moment(piece["created"]).fromNow() %></p>
+<p id="showBody"><%= piece["body"] %></p>
+
+<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST">
+	<button class="ui red button">Delete</button>
+</form>
+
+<%- include("../partials/footer") %>

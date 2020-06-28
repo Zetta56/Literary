@@ -13,7 +13,7 @@
 }
 
 #mainContainer {
-	margin-top: 20px;
+	margin-top: 50px;
 }
 
 /* Pieces Index */
@@ -23,43 +23,27 @@
 	padding: 100px 20%;
 }
 
+#pagination {
+	margin-top: 50px;
+	display: flex;
+	justify-content: center;
+}
+
+#pagination .ui.pagination.menu {
+	padding: 0;
+}
+
 #gallery {
 	margin-top: 20px;
-	height: 1500px;
-	display: flex;
-	flex-flow: column wrap;
-	align-content: flex-start;
 }
 
 #gallery .ui.card {
-	display: table;
 	margin: 1.6%;
-	width: 30%;
-}
-
-@media only screen and (max-width: 1200px) {
-	#gallery {
-		height: 1900px;
-	}
-	#gallery .ui.card {
-		width: 50%;
-	}
+	width: 100%;
 }
 @media only screen and (max-width: 992px) {
 	.ui.massive.message {
 		padding: 50px 8%;
-	}
-	#gallery {
-		height: 2200px;
-	}
-}
-
-@media only screen and (max-width: 768px) {
-	#gallery {
-		height: 100%;
-	}
-	#gallery .ui.card {
-		width: 100%;
 	}
 }
 	
@@ -72,4 +56,10 @@
 #formBody {
 	width: 60%;
 	margin: 30px auto;
+}
+
+/* Piece Show */
+
+#showBody {
+	font-size: 17px;
 }
