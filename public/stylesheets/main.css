@@ -1,9 +1,19 @@
+.textBody {
+	margin-top: 40px;
+	white-space: pre-line;
+	font-size: 20px;
+}
+
+.meta {
+	margin: 5px 0 10px 0;
+}
+
 /* Header */
-.ui.inverted.menu {
+#menu {
 	margin: 0;
 }
 
-.item {
+#menu .item {
 	font-size: 1.25rem;
 }
 
@@ -42,10 +52,6 @@
 	width: 100%;
 }
 
-.readMore {
-	font-size: 14px;
-}
-
 @media only screen and (max-width: 992px) {
 	.ui.massive.message {
 		padding: 50px 8%;
@@ -53,6 +59,11 @@
 }
 	
 /* Forms */
+
+#userForm {
+	margin: 100px auto;
+	width: 40%;
+}
 
 #textForm {
 	margin: 30px auto;
@@ -65,12 +76,11 @@
 
 /* Piece Show */
 
-#showBody {
-	margin-top: 20px;
-	font-size: 17px;
+#show #header {
+	margin: 0;
 }
 
-#showImage {
+#show #image {
 	margin: 30px auto;
 }
 

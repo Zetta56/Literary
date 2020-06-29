@@ -1,6 +1,6 @@
 const express = require("express"),
-	  app = express(),
 	  router = express.Router(),
+	  middleware = require("../middleware/index"),
 	  Piece = require("../models/piece");
 
 router.get("/", async (req, res) => {
@@ -12,13 +12,16 @@ router.get("/", async (req, res) => {
 	res.render("pieces/index", {pieces: pieces, current: pageNumber, pages: Math.ceil(matches / max)});
 });
 
-router.get("/new", (req, res) => {
+router.get("/new", middleware.LoggedIn, (req, res) => {
 	res.render("pieces/new");
 });
 
-router.post("/", async (req, res) => {
+router.post("/", middleware.LoggedIn, async (req, res) => {
 	try {
-		await Piece.create(req.body.piece);
+		let createdPiece = await Piece.create(req.body.piece);
+		createdPiece.author.id = req.user._id;
+		createdPiece.author.username = req.user.username;
+		createdPiece.save()
 		req.flash("success", "Piece successfully uploaded!");
 		res.redirect("/pieces");
 	} catch(err) {
@@ -37,7 +40,7 @@ router.get("/:id", async(req, res) => {
 	};
 });
 
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", middleware.AuthorizedPiece, async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
 		res.render("pieces/edit", {piece: foundPiece});
@@ -47,7 +50,7 @@ router.get("/:id/edit", async (req, res) => {
 	};
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	try {
 		await Piece.findByIdAndUpdate(req.params.id, req.body.piece);
 		req.flash("success", "Piece successfully updated.");
@@ -58,7 +61,7 @@ router.put("/:id", async (req, res) => {
 	};
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	try {
 		await Piece.findByIdAndDelete(req.params.id);
 		req.flash("success", "Piece successfully removed.")

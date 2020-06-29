@@ -1,37 +1,11 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Literary</title>
-		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-		<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
-	</head>
-	<body>
-<!-- 	Menu	 -->
-		<div class="ui inverted menu">
-			<div class="ui container">
-				<a href="/" class="header item">Literary</a>
-				<a href="/pieces" class="item">Literature</a>
-				<div class="right menu">
-					<a href="#" class="item">Sign In</a>
-					<a href="#" class="item">Register</a>
-				</div>
-			</div>
-		</div>
-<!-- 	Flash Messages	 -->
-		<% if(error.length > 0) { %>
-			<div class="ui negative message"><%= error %></div>
-		<% } %>
-		<% if(success.length > 0) { %>
-			<div class="ui positive message"><%= success %></div>
-		<% } %>
-<!-- 	Header	 -->
+<%- include("../partials/header") %>
+
 		<div class="ui massive message">
 			<h1 class="ui large header">View Our Collections</h1>
 			<p>Read through all these stories, poems, articles, and more posted by individuals around the web!</p>
 			<a href="/pieces/new" class="ui large primary button">Add New Piece</a>
 		</div>
 		<div class="ui container">
-<!-- 	Gallery		 -->
 			<div id="gallery" class="ui stackable three column grid container">
 				<% pieces.forEach(piece => { %>
 					<div class="column">
@@ -41,21 +15,14 @@
 									<h2><a href="/pieces/<%= piece["_id"] %>"><%= piece["title"] %></a></h2>
 								</div>
 								<div class="meta">
-									<%= moment(piece["created"]).fromNow() %>
+									<%= moment(piece["created"]).fromNow() %>, by <%= piece["author"]["username"] %>
 								</div>
-								<div class="description">
-									<p class="ui medium header"><%= piece["body"].slice(0, 400) %>
-										<% if(piece["body"].length > 500) { %>
-											... <a href="/pieces/<%= piece["_id"] %>" class="readMore">Read More</a>
-										<% } %>
-									</p>
-								</div>
+								<p class="textBody"><%= piece["body"].slice(0, 300) %>...</p>
 							</div>
 						</div>
 					</div>
 				<% }) %>
 			</div>
-<!-- 	Pagination Bar	 -->
 			<div id="pagination">
 				<% if (pages && pages > 0) { %>
 					<ul class="ui pagination menu">
@@ -92,5 +59,6 @@
 					</ul>
 				<% } %>
 			</div>
+		</div>
 
 <%- include("../partials/footer") %>

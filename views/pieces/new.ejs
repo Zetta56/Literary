@@ -1,11 +1,11 @@
 <%- include("../partials/header") %>
 
-<div class="ui grid">
+<div id="mainContainer" class="ui container">
 	<form id="textForm" class="ui form" action="/pieces" method="POST">
 		<h1 class="ui center aligned header">Add a New Piece</h1>
 		<div class="field">
 			<label for="title">Title</label>
-			<input id="title" type="text" placeholder="Title" name="piece[title]" required>
+			<input id="title" type="text" placeholder="Title" name="piece[title]" maxlength="30" required>
 		</div>
 		<div class="field">
 			<label for="body">Body</label>
@@ -18,7 +18,7 @@
 		<div class="field">
 			<p><strong>Type</strong></p>
 			<span class="typeOption">
-				<input type="radio" value="story" name="piece[type]" id="story">
+				<input type="radio" value="story" name="piece[type]" id="story" required>
 				<label for="story"><strong>Story</strong></label>
 			</span>
 			<span class="typeOption">

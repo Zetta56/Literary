@@ -6,13 +6,17 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
 	</head>
 	<body>
-		<div class="ui inverted menu">
+		<div class="ui inverted menu" id="menu">
 			<div class="ui container">
 				<a href="/" class="header item">Literary</a>
 				<a href="/pieces" class="item">Literature</a>
 				<div class="right menu">
-					<a href="#" class="item">Sign In</a>
-					<a href="#" class="item">Register</a>
+					<% if(!user) { %>
+						<a href="/login" class="item">Sign In</a>
+						<a href="/register" class="item">Register</a>
+					<% } else { %>
+						<a href="/logout" class="item">Logout</a>
+					<% } %>
 				</div>
 			</div>
 		</div>
@@ -22,4 +26,3 @@
 		<% if(success.length > 0) { %>
 			<div class="ui positive message"><%= success %></div>
 		<% } %>
-		<div id="mainContainer" class="ui container">

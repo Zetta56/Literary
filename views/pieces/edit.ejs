@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
 
-<div class="ui grid">
+<div id="mainContainer" class="ui container">
 	<form id="textForm" class="ui form" action="/pieces/<%= piece["_id"] %>?_method=PUT" method="POST">
 		<h1 class="ui center aligned header">Edit "<%= piece["title"] %>"</h1>
 		<div class="field">
@@ -13,7 +13,7 @@
 		</div>
 		<div class="field">
 			<label for="image">Image (optional)</label>
-			<input type="text" value="<%= piece["image"] %>" name="piece[image]" id="image">
+			<input type="text" value="<%= piece["image"] %>" name="piece[image]" max-length="30" id="image">
 		</div>
 		<div class="field">
 			<p><strong>Type</strong></p>
