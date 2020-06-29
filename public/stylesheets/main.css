@@ -41,6 +41,11 @@
 	margin: 1.6%;
 	width: 100%;
 }
+
+.readMore {
+	font-size: 14px;
+}
+
 @media only screen and (max-width: 992px) {
 	.ui.massive.message {
 		padding: 50px 8%;
@@ -49,17 +54,26 @@
 	
 /* Forms */
 
-#formTitle {
-	text-align: center;
+#textForm {
+	margin: 30px auto;
+	width: 85%;
 }
 
-#formBody {
-	width: 60%;
-	margin: 30px auto;
+#textForm .typeOption {
+	margin-right: 30px;
 }
 
 /* Piece Show */
 
 #showBody {
+	margin-top: 20px;
 	font-size: 17px;
+}
+
+#showImage {
+	margin: 30px auto;
+}
+
+#deleteForm {
+	display: inline;
 }

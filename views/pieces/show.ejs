@@ -1,11 +1,22 @@
 <%- include("../partials/header") %>
 
-<h1 class="ui header"><%= piece["title"] %></h1>
-<p><%= moment(piece["created"]).fromNow() %></p>
-<p id="showBody"><%= piece["body"] %></p>
-
-<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST">
-	<button class="ui red button">Delete</button>
-</form>
+<div class="ui centered grid">
+	<div class="fourteen wide column">
+		<h1 class="ui header"><%= piece["title"] %></h1>
+		<p><%= moment(piece["created"]).fromNow() %></p>
+		<span class="ui teal label">#<%= piece["type"] %></span>
+		<% piece["tags"].forEach(tag => { %>
+			<span class="ui label">#<%= tag %></span>
+		<% }) %>
+		<% if(piece.image) { %>
+			<img src="<%= piece["image"] %>" class="ui centered large image" id="showImage">
+		<% } %>
+		<p id="showBody"><%= piece["body"] %></p>
+		<a href="/pieces/<%= piece["_id"] %>/edit" class="ui yellow button">Edit</a>
+		<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST" id="deleteForm">
+			<button class="ui red button">Delete</button>
+		</form>
+	</div>
+</div>
 
 <%- include("../partials/footer") %>

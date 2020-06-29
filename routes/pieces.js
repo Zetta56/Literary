@@ -37,6 +37,27 @@ router.get("/:id", async(req, res) => {
 	};
 });
 
+router.get("/:id/edit", async (req, res) => {
+	try {
+		let foundPiece = await Piece.findById(req.params.id);
+		res.render("pieces/edit", {piece: foundPiece});
+	} catch(err) {
+		req.flash("error", err.message);
+		res.redirect("back");
+	};
+});
+
+router.put("/:id", async (req, res) => {
+	try {
+		await Piece.findByIdAndUpdate(req.params.id, req.body.piece);
+		req.flash("success", "Piece successfully updated.");
+		res.redirect("/pieces/" + req.params.id);
+	} catch(err) {
+		req.flash("error", err.message);
+		res.redirect("back");
+	};
+});
+
 router.delete("/:id", async (req, res) => {
 	try {
 		await Piece.findByIdAndDelete(req.params.id);

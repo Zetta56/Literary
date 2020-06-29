@@ -46,7 +46,7 @@
 								<div class="description">
 									<p class="ui medium header"><%= piece["body"].slice(0, 400) %>
 										<% if(piece["body"].length > 500) { %>
-										...
+											... <a href="/pieces/<%= piece["_id"] %>" class="readMore">Read More</a>
 										<% } %>
 									</p>
 								</div>

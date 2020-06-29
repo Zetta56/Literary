@@ -1,19 +1,19 @@
 <%- include("../partials/header") %>
 
 <div class="ui grid">
-	<form id="textForm" class="ui form" action="/pieces" method="POST">
-		<h1 class="ui center aligned header">Add a New Piece</h1>
+	<form id="textForm" class="ui form" action="/pieces/<%= piece["_id"] %>?_method=PUT" method="POST">
+		<h1 class="ui center aligned header">Edit "<%= piece["title"] %>"</h1>
 		<div class="field">
 			<label for="title">Title</label>
-			<input id="title" type="text" placeholder="Title" name="piece[title]" required>
+			<input id="title" type="text" value="<%= piece["title"] %>" name="piece[title]" required>
 		</div>
 		<div class="field">
 			<label for="body">Body</label>
-			<textarea id="body" placeholder="Type your piece here..." name="piece[body]" required></textarea>
+			<textarea id="body" name="piece[body]" required><%= piece["body"] %></textarea>
 		</div>
 		<div class="field">
 			<label for="image">Image (optional)</label>
-			<input type="text" placeholder="Image URL" name="piece[image]" id="image">
+			<input type="text" value="<%= piece["image"] %>" name="piece[image]" id="image">
 		</div>
 		<div class="field">
 			<p><strong>Type</strong></p>
@@ -44,7 +44,7 @@
 		</div>
 		<div class="field">
 			<label for="tags">Additional Tags</label>
-			<input id="tags" type="text" placeholder="Tags" name="piece[tags]">
+			<input id="tags" type="text" value="<%= piece["tags"] %>" name="piece[tags]">
 		</div>
 		<button class="ui primary button">Submit</button>
 	</form>
