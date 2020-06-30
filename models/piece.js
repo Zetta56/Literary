@@ -9,6 +9,12 @@ const pieceSchema = new mongoose.Schema({
 		{type: String}
 	],
 	created: {type: Date, default: Date.now},
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Comment"
+		}
+	],
 	author: {
 		id: {
 			type: mongoose.Schema.Types.ObjectId,

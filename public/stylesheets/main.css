@@ -8,18 +8,27 @@
 	margin: 5px 0 10px 0;
 }
 
+.ui.button {
+	margin: 10px 0;
+}
+
+.shown {
+	display: block !important;
+}
+
 /* Header */
+
+.ui.message {
+	margin: 0;
+	text-align: center;
+}
+
 #menu {
 	margin: 0;
 }
 
 #menu .item {
 	font-size: 1.25rem;
-}
-
-.ui.message {
-	margin: 0;
-	text-align: center;
 }
 
 #mainContainer {
@@ -61,12 +70,12 @@
 /* Forms */
 
 #userForm {
-	margin: 100px auto;
+	margin: 120px auto;
 	width: 40%;
 }
 
 #textForm {
-	margin: 30px auto;
+	margin: 50px auto;
 	width: 85%;
 }
 
@@ -86,4 +95,13 @@
 
 #deleteForm {
 	display: inline;
+}
+
+#commentSection {
+	margin-top: 100px;
+	font-size: 18px;
+}
+
+.editForm {
+	display: none;
 }

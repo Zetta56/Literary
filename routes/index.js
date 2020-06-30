@@ -3,6 +3,7 @@ const express = require("express"),
 	  passport = require("passport"),
 	  middleware = require("../middleware/index"),
 	  Piece = require("../models/piece"),
+	  Comment = require("../models/comment"),
 	  User = require("../models/user");
 
 router.get("/", (req, res) => {

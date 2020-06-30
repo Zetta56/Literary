@@ -18,10 +18,10 @@ router.get("/new", middleware.LoggedIn, (req, res) => {
 
 router.post("/", middleware.LoggedIn, async (req, res) => {
 	try {
-		let createdPiece = await Piece.create(req.body.piece);
-		createdPiece.author.id = req.user._id;
-		createdPiece.author.username = req.user.username;
-		createdPiece.save()
+		let newPiece = await Piece.create(req.body.piece);
+		newPiece.author.id = req.user._id;
+		newPiece.author.username = req.user.username;
+		newPiece.save();
 		req.flash("success", "Piece successfully uploaded!");
 		res.redirect("/pieces");
 	} catch(err) {
@@ -32,7 +32,7 @@ router.post("/", middleware.LoggedIn, async (req, res) => {
 
 router.get("/:id", async(req, res) => {
 	try {
-		let foundPiece = await Piece.findById(req.params.id);
+		let foundPiece = await Piece.findById(req.params.id).populate("comments").exec();
 		res.render("pieces/show", {piece: foundPiece});
 	} catch(err) {
 		req.flash("error", err.message);
@@ -64,7 +64,7 @@ router.put("/:id", middleware.AuthorizedPiece, async (req, res) => {
 router.delete("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	try {
 		await Piece.findByIdAndDelete(req.params.id);
-		req.flash("success", "Piece successfully removed.")
+		req.flash("success", "Piece successfully removed.");
 		res.redirect("/pieces");
 	} catch(err) {
 		req.flash("error", err.message);

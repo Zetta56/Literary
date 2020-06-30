@@ -13,10 +13,12 @@ const express = require("express"),
 
 //Models
 const Piece = require("./models/piece"),
+	  Comment = require("./models/comment"),
 	  User = require("./models/user");
 
 //Routes
 const piecesRoutes = require("./routes/pieces"),
+	  commentRoutes = require("./routes/comments"),
 	  indexRoutes = require("./routes/index");
 
 //App Config
@@ -50,6 +52,7 @@ app.use((req, res, next) => {
 
 //Routes
 app.use("/pieces", piecesRoutes);
+app.use("/pieces/:id/comments", commentRoutes);
 app.use("/", indexRoutes);
 
 //Server

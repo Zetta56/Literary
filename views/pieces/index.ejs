@@ -33,7 +33,6 @@
 							<a href="/pieces" class="item">First</a>
 							<a href="/pieces?page=<%= Number(current) - 1 %>" class="item">&lt;</a>
 						<% } %>
-						
 						<% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
 						<% if (i !== 1) { %>
 							<a class="active item">...</a>
@@ -48,7 +47,6 @@
 								<a class="active item">...</a>
 							<% } %>
 						<% } %>
-						
 						<% if (current == pages) { %>
 							<a class="disabled item">»</a>
 							<a class="disabled item">Last</a>
