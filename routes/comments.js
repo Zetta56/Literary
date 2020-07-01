@@ -21,7 +21,7 @@ router.post("/", middleware.LoggedIn, async (req,res) => {
 	};
 });
 
-router.post("/:comment_id", middleware.AuthorizedComment, async (req, res) => {
+router.put("/:comment_id", middleware.AuthorizedComment, async (req, res) => {
 	try {
 		await Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment);
 		req.flash("success", "Comment successfully updated.");

@@ -1,0 +1,22 @@
+<%- include("../partials/header") %>
+
+<div id="mainContainer" class="ui container">
+	<form id="userForm" class="ui form" action="/users/<%= user["_id"] %>?_method=PUT" method="POST">
+		<h1 class="ui center aligned header">Update Profile</h1>
+		<div class="field">
+			<label for="firstName">First Name</label>
+			<input id="firstName" type="text" name="user[firstName]" value="<%= user["firstName"] %>" required>
+		</div>
+		<div class="field">
+			<label for="lastName">Last Name</label>
+			<input id="lastName" type="text" name="user[lastName]" value="<%= user["lastName"] %>" required>
+		</div>
+		<div class="field">
+			<label for="email">Email</label>
+			<input id="image" type="text" name="user[email]" value="<%= user["email"] %>" required>
+		</div>
+		<button class="ui primary button">Submit</button>
+	</form>
+</div>
+
+<%- include("../partials/footer") %>

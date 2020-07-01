@@ -1,4 +1,7 @@
 $(".editButton").on("click", function() {
-	$(this).siblings(".editForm").toggle("shown");
-	$(".editForm").remove("shown");
+	$(this).siblings(".editForm").slideToggle();
 });
+
+$("#avatarButton").on("click", function() {
+	$(this).siblings("#avatarForm").slideToggle();
+})

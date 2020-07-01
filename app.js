@@ -19,6 +19,7 @@ const Piece = require("./models/piece"),
 //Routes
 const piecesRoutes = require("./routes/pieces"),
 	  commentRoutes = require("./routes/comments"),
+	  userRoutes = require("./routes/users"),
 	  indexRoutes = require("./routes/index");
 
 //App Config
@@ -46,13 +47,14 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
 	res.locals.error = req.flash("error");
 	res.locals.success = req.flash("success");
-	res.locals.user = req.user;
+	res.locals.currentUser = req.user;
 	next();
 })
 
 //Routes
 app.use("/pieces", piecesRoutes);
 app.use("/pieces/:id/comments", commentRoutes);
+app.use("/users/:user_id", userRoutes)
 app.use("/", indexRoutes);
 
 //Server

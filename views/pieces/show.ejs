@@ -4,7 +4,12 @@
 	<div class="ui centered grid" id="show">
 		<div class="fourteen wide column">
 			<h1 id="header"><%= piece["title"] %></h1>
-			<div class="meta"><%= moment(piece["created"]).fromNow() %>, by <%= piece["author"]["username"] %></div>
+			<div class="meta">
+				<em>
+					Submitted By <a href="/users/<%= piece["author"]["id"] %>"><%= piece["author"]["username"] %></a>,
+					<%= moment(piece["created"]).fromNow() %>
+				</em>
+			</div>
 			<span class="ui teal label">#<%= piece["type"] %></span>
 			<% piece["tags"].forEach(tag => { %>
 				<% if(tag.length > 0) { %>
@@ -15,35 +20,49 @@
 				<img src="<%= piece["image"] %>" class="ui centered large image" id="image">
 			<% } %>
 			<p class="textBody"><%= piece["body"] %></p>
-			<% if(user && piece["author"]["id"].equals(user._id)) { %>
+			<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
 				<a href="/pieces/<%= piece["_id"] %>/edit" class="ui yellow button">Edit</a>
 				<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST" id="deleteForm">
 					<button class="ui red button">Delete</button>
 				</form>
 			<% } %>
+			
 			<div id="commentSection">
 				<h2>Comments (<%= piece["comments"].length %>)</h2>
-				<form action="/pieces/<%= piece["_id"] %>/comments" method="POST" class="ui form">
-					<button class="ui green button">+ Add Comment</button>
-					<textarea placeholder="Type your comment here..." name="comment[body]" required></textarea>
-				</form>
+				<% if(currentUser) { %>
+					<form action="/pieces/<%= piece["_id"] %>/comments" method="POST" class="ui form">
+						<button class="ui green button">+ Add Comment</button>
+						<textarea placeholder="Type your comment here..." name="comment[body]" required></textarea>
+					</form>
+				<% } else { %>
+					<h2 id="authMessage">
+						<a href="/login">Login</a> or <a href="/register">Sign Up</a> to Comment
+					</h2>
+				<% } %>
 				<div class="ui items">
 					<% piece["comments"].forEach(comment => { %>
 						<div class="item">
 							<div class="content">
-								<div><strong><%= comment["author"]["username"] %></strong><em>, <%= moment(comment["created"]).fromNow() %></em></div>
+								<div>
+									<strong><a href="/users/<%= comment["author"]["id"] %>"><%= comment["author"]["username"] %></a></strong>
+									<em>, <%= moment(comment["created"]).fromNow() %></em>
+								</div>
 								<div class="description">
 									<p><%= comment["body"] %></p>
 								</div>
-								<% if(user && comment["author"]["id"].equals(user._id)) { %>
-								<button class="ui tiny yellow button editButton">Edit</button>
-								<form action="/pieces/<%= piece["_id"] %>/comments/<%= comment["id"] %>?_method=DELETE" method="POST" id="deleteForm">
-									<button class="ui tiny red button">Delete</button>
-								</form>
-								<form class="ui form editForm" action="/pieces/<%= piece["_id"] %>/comments/<%= comment["_id"] %>" method="POST">
-									<textarea name="comment[body]" required><%= comment["body"] %></textarea>
-									<button class="ui mini primary button">Submit</button>
-								</form>
+								<% if(currentUser && comment["author"]["id"].equals(currentUser._id)) { %>
+									<button class="ui tiny yellow button editButton">Edit</button>
+									<form action="/pieces/<%= piece["_id"] %>/comments/<%= comment["id"] %>?_method=DELETE" 
+										  method="POST" 
+										  id="deleteForm">
+										<button class="ui tiny red button">Delete</button>
+									</form>
+									<form class="ui form editForm" 
+										  action="/pieces/<%= piece["_id"] %>/comments/<%= comment["_id"] %>?_method=PUT" 
+										  method="POST">
+										<textarea name="comment[body]" required><%= comment["body"] %></textarea>
+										<button class="ui mini primary button">Submit</button>
+									</form>
 								<% } %>
 							</div>
 						</div>

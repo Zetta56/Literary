@@ -11,10 +11,11 @@
 				<a href="/" class="header item">Literary</a>
 				<a href="/pieces" class="item">Literature</a>
 				<div class="right menu">
-					<% if(!user) { %>
+					<% if(!currentUser) { %>
 						<a href="/login" class="item">Sign In</a>
 						<a href="/register" class="item">Register</a>
 					<% } else { %>
+						<a href="/users/<%= currentUser._id %>" class="item">Profile</a>
 						<a href="/logout" class="item">Logout</a>
 					<% } %>
 				</div>

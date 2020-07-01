@@ -102,6 +102,49 @@
 	font-size: 18px;
 }
 
+#authMessage {
+	background-color: whiteSmoke;
+	text-align: center;
+	line-height: 100px;
+}
+
+#authMessage a {
+	color: #0066CC;
+}
+
 .editForm {
 	display: none;
+}
+
+/* Profile */
+
+#userInfo {
+	margin: 40px auto;
+	font-size: 20px;
+}
+
+
+#avatarButton {
+	margin: 0;
+	width: 100%;
+}
+
+#avatarForm {
+	display: none;
+	border: 1px solid steelblue;
+}
+
+#history {
+	margin-top: 100px;
+}
+
+#history .content {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: center;
+}
+
+#history .content .header, .meta {
+	width: 100%;
 }

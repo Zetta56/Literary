@@ -1,0 +1,95 @@
+<%- include("../partials/header") %>
+
+<div id="mainContainer" class="ui container">
+	<h1><%= user["username"] %>'s Profile</h1>
+	<div class="ui grid">
+		<div class="six wide column">
+			<img src="<%= user["avatar"] %>" class="ui fluid image">
+			<button class="ui primary button" id="avatarButton">Change Avatar</button>
+			<form action="/users/<%= user["_id"] %>/avatar?_method=PUT" method="POST" class="ui form" id="avatarForm">
+				<input type="text" placeholder="Avatar URL" name="avatar" required>
+			</form>
+		</div>
+		<div id="userInfo" class="ten wide column">
+			<div class="ui two column grid">
+				<div class="column">
+					<span>
+						<strong>First Name:</strong> 
+						<%= user["firstName"] %>
+					</span>
+				</div>
+				<div class="column">
+					<span class="ui right floated">
+						<strong>Last Name:</strong> 
+						<%= user["lastName"] %>
+					</span>
+				</div>
+			</div>
+			<br>
+			<p>
+				<strong>Email:</strong> 
+				<%= user["email"] %>
+			</p>
+			<% if(currentUser && user["_id"].equals(currentUser._id)) { %>
+				<a href="/users/<%= user["_id"] %>/edit" class="ui right floated yellow button">Edit</a>
+			<% } %>
+		</div>
+	</div>
+	
+	<div class="ui items" id="history">
+		<h2>Past Pieces:</h2>
+		<% pieces.forEach(piece => { %>
+			<div class="item">
+				<div class="image">
+					<% if(piece["image"]) { %>
+						<img src="<%= piece["image"] %>">
+					<% } else { %>
+						<img src="https://www.tibs.org.tw/images/default.jpg">
+					<% } %>
+				</div>
+				<div class="content">
+					<div class="header"><a href="/pieces/<%= piece["_id"] %>"><%= piece["title"] %></a></div>
+					<div class="meta"><%= moment(piece["created"]).fromNow() %></div>
+					<div class="description"><%= piece["body"].slice(0, 400) %>...</div>
+				</div>
+			</div>
+		<% }) %>
+	</div>
+	
+	<div id="pagination">
+		<% if (pages && pages > 1) { %>
+			<ul class="ui pagination menu">
+				<% if (current == 1) { %>
+					<a class="disabled item">First</a>
+					<a class="disabled item">&lt;</a>
+				<% } else { %>
+					<a href="/pieces" class="item">First</a>
+					<a href="/pieces?page=<%= Number(current) - 1 %>" class="item">&lt;</a>
+				<% } %>
+				<% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+				<% if (i !== 1) { %>
+					<a class="active item">...</a>
+				<% } %>
+				<% for (i ; i <= (Number(current) + 4) && i <= pages; i++) { %>
+					<% if (i == current) { %>
+						<a class="active item"><%= i %></a>
+					<% } else { %>
+						<a href="/pieces?page=<%= i %>" class="item"><%= i %></a>
+					<% } %>
+					<% if (i == Number(current) + 4 && i < pages) { %>
+						<a class="active item">...</a>
+					<% } %>
+				<% } %>
+				<% if (current == pages) { %>
+					<a class="disabled item">&gt;</a>
+					<a class="disabled item">Last</a>
+				<% } else { %>
+					<a href="/pieces?page=<%= Number(current) + 1 %>" class="item">&gt;</a>
+					<a href="/pieces?page=<%= pages %>"class="item">Last</a>
+				<% } %>
+			</ul>
+		<% } %>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>
