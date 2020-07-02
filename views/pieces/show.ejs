@@ -26,12 +26,19 @@
 					<button class="ui red button">Delete</button>
 				</form>
 			<% } %>
+			<% if(currentUser && piece["likes"].some(like => {
+				return like.equals(currentUser._id);
+			})) { %>
+				<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini green button">Liked!</a>
+			<% } else { %>
+				<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini blue button">Like</a>
+			<% } %>
 			
 			<div id="commentSection">
 				<h2>Comments (<%= piece["comments"].length %>)</h2>
 				<% if(currentUser) { %>
 					<form action="/pieces/<%= piece["_id"] %>/comments" method="POST" class="ui form">
-						<button class="ui green button">+ Add Comment</button>
+						<button class="ui green button" id="addButton">+ Add Comment</button>
 						<textarea placeholder="Type your comment here..." name="comment[body]" required></textarea>
 					</form>
 				<% } else { %>

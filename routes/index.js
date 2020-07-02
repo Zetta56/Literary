@@ -13,7 +13,6 @@ router.get("/", (req, res) => {
 router.get("/register", middleware.NotLoggedIn, (req, res) => {
 	res.render("register");
 });
-
 router.post("/register", middleware.NotLoggedIn, async (req, res) => {
 	try {
 		let user = new User({
@@ -36,7 +35,6 @@ router.post("/register", middleware.NotLoggedIn, async (req, res) => {
 router.get("/login", middleware.NotLoggedIn, (req, res) => {
 	res.render("login");
 });
-
 router.post("/login", middleware.NotLoggedIn, passport.authenticate("local", {
 	successRedirect: "/pieces",
 	successFlash: "You have successfully logged in.",

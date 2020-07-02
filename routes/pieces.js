@@ -72,4 +72,23 @@ router.delete("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	}
 })
 
+router.get("/:id/likes", middleware.LoggedIn, async (req, res) => {
+	try {
+		let foundPiece = await Piece.findById(req.params.id);
+		let liked = foundPiece.likes.some(like => {
+			return like.equals(req.user._id);
+		});
+		if(liked) {
+			await foundPiece.likes.pull(req.user._id);
+		} else {
+			await foundPiece.likes.push(req.user._id);
+		};
+		foundPiece.save();
+		res.redirect("/pieces");
+	} catch(err) {
+		req.flash("error", err.message);
+		res.redirect("back");
+	};
+});
+
 module.exports = router;

@@ -10,7 +10,13 @@
 			<div id="gallery" class="ui stackable three column grid container">
 				<% pieces.forEach(piece => { %>
 					<div class="column">
-						<div class="ui card">
+						<div class="ui card indexCard">
+							<div id="topBar">
+								<div class="ui label right floated item">
+									Likes
+									<div class="detail"><%= piece["likes"].length %></div>
+								</div>
+							</div>
 							<div class="content">
 								<div class="header">
 									<h2><a href="/pieces/<%= piece["_id"] %>"><%= piece["title"] %></a></h2>
@@ -20,6 +26,18 @@
 									<a href="/users/<%= piece["author"]["id"] %>"><%= piece["author"]["username"] %></a>
 								</div>
 								<p class="textBody"><%= piece["body"].slice(0, 300) %>...</p>
+							</div>
+							<div id="bottomBar">
+								<% if(currentUser && piece["likes"].some(like => {
+									return like.equals(currentUser._id);
+								})) { %>
+									<a href="/pieces/<%= piece["_id"] %>/likes"><i class="fas fa-thumbs-up like"></i></a>
+								<% } else { %>
+									<i class="far fa-thumbs-up"></i>
+									<a href="/pieces/<%= piece["_id"] %>/likes"><i class="fas fa-thumbs-up"></i></a>
+								<% } %>
+								<i class="far fa-heart"></i>
+									<a><i class="fas fa-heart"></i></a>
 							</div>
 						</div>
 					</div>

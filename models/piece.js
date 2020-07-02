@@ -21,7 +21,13 @@ const pieceSchema = new mongoose.Schema({
 			ref: "User"
 		},
 		username: String
-	}
+	},
+	likes: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "User"
+		}
+	]
 });
 
 module.exports = mongoose.model("Piece", pieceSchema);
