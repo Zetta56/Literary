@@ -20,18 +20,20 @@
 				<img src="<%= piece["image"] %>" class="ui centered large image" id="image">
 			<% } %>
 			<p class="textBody"><%= piece["body"] %></p>
-			<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
-				<a href="/pieces/<%= piece["_id"] %>/edit" class="ui yellow button">Edit</a>
-				<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST" id="deleteForm">
-					<button class="ui red button">Delete</button>
-				</form>
-			<% } %>
 			<% if(currentUser && piece["likes"].some(like => {
 				return like.equals(currentUser._id);
 			})) { %>
-				<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini green button">Liked!</a>
+				<p><a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini green button">Liked!</a></p>
 			<% } else { %>
 				<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini blue button">Like</a>
+			<% } %>
+			<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
+				<div id="pieceOwnerButtons">
+					<a href="/pieces/<%= piece["_id"] %>/edit" class="ui yellow button">Edit</a>
+					<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST" id="deleteForm">
+						<button class="ui red button">Delete</button>
+					</form>
+				</div>
 			<% } %>
 			
 			<div id="commentSection">

@@ -122,6 +122,27 @@
 	margin-right: 30px;
 }
 
+#tagField {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+#tagField label {
+	width: 100%;
+}
+
+#tagField #tags {
+	width: 30%;
+}
+
+#tagField .tag {
+	background-color: lightgray;
+	font-size: 14px;
+	margin-right: 10px;
+	padding: 5px 10px;
+}
+
 /* Piece Show */
 
 #show #header {
@@ -130,6 +151,10 @@
 
 #show #image {
 	margin: 30px auto;
+}
+
+#pieceOwnerButtons {
+	text-align: right;
 }
 
 #deleteForm {

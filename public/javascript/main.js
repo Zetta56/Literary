@@ -9,9 +9,29 @@ $("#avatarButton").on("click", function() {
 })
 
 //Piece Tags
-$("#tags").on("change", function(event) {
-	alert("hello")
-})
+$("#tags").on("keypress", function(event) {
+	if(event.which === 32) {
+		let text = $(this).val().replace(/[^a-zA-Z0-9]/g, "");
+		if(text) {
+			$(this).before("<span class='tag'>" + text + "</span>");
+		};
+		$(this).val("");
+	};
+});
+
+$("#tagField").on("click", ".tag", function() {
+	$(this).fadeOut(function() {
+		$(this).remove();
+	});
+});
+
+$("#tagField").on("DOMNodeInserted", ".tag", function() {
+	$("#submitTags").val($("#submitTags").val() + "," + $(this).text());
+});
+
+$("#tagField").on("DOMNodeRemoved", ".tag", function() {
+	$("#submitTags").val($("#submitTags").val().replace($(this).text(), ""));
+});
 
 //Card Hover Effect
 $(".indexCard").hover(function() {

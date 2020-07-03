@@ -19,8 +19,10 @@ router.get("/new", middleware.LoggedIn, (req, res) => {
 router.post("/", middleware.LoggedIn, async (req, res) => {
 	try {
 		let newPiece = await Piece.create(req.body.piece);
+		let tagsArray = req.body.tags.split(",").filter(tag => String(tag).trim());
 		newPiece.author.id = req.user._id;
 		newPiece.author.username = req.user.username;
+		newPiece.tags = tagsArray;
 		newPiece.save();
 		req.flash("success", "Piece successfully uploaded!");
 		res.redirect("/pieces");
@@ -40,7 +42,7 @@ router.get("/:id", async(req, res) => {
 	};
 });
 
-router.get("/:id/edit", middleware.AuthorizedPiece, async (req, res) => {
+router.get("/:id/edit", async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
 		res.render("pieces/edit", {piece: foundPiece});
@@ -52,7 +54,10 @@ router.get("/:id/edit", middleware.AuthorizedPiece, async (req, res) => {
 
 router.put("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	try {
-		await Piece.findByIdAndUpdate(req.params.id, req.body.piece);
+		let updatedPiece = await Piece.findByIdAndUpdate(req.params.id, req.body.piece);
+		let tagsArray = req.body.tags.split(",").filter(tag => String(tag).trim());
+		updatedPiece.tags = tagsArray;
+		updatedPiece.save();
 		req.flash("success", "Piece successfully updated.");
 		res.redirect("/pieces/" + req.params.id);
 	} catch(err) {
