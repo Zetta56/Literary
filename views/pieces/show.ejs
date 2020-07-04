@@ -3,7 +3,7 @@
 <div id="mainContainer" class="ui container">
 	<div class="ui centered grid" id="show">
 		<div class="fourteen wide column">
-			<h1 id="header"><%= piece["title"] %></h1>
+			<h1><%= piece["title"] %></h1>
 			<div class="meta">
 				<em>
 					Submitted By <a href="/users/<%= piece["author"]["id"] %>"><%= piece["author"]["username"] %></a>,
@@ -17,7 +17,7 @@
 				<% } %>
 			<% }) %>
 			<% if(piece.image) { %>
-				<img src="<%= piece["image"] %>" class="ui centered large image" id="image">
+				<img src="<%= piece["image"] %>" class="ui centered large image">
 			<% } %>
 			<p class="textBody"><%= piece["body"] %></p>
 			<% if(currentUser && piece["likes"].some(like => {
@@ -28,7 +28,7 @@
 				<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini blue button">Like</a>
 			<% } %>
 			<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
-				<div id="pieceOwnerButtons">
+				<div id="ownerButtons">
 					<a href="/pieces/<%= piece["_id"] %>/edit" class="ui yellow button">Edit</a>
 					<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST" id="deleteForm">
 						<button class="ui red button">Delete</button>

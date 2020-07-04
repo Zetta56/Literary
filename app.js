@@ -1,3 +1,8 @@
+//change profile pagination links
+//style landing page
+//add saved pieces
+//notifications?
+
 //Packages
 const express = require("express"),
 	  app = express(),

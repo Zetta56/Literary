@@ -1,7 +1,101 @@
+/* Shared Classes */
+
+#tagField,
+#history .content {
+	align-items: center;
+}
+
+#bottomBar,
+#topBar,
+#topBar .ui.label {
+	background-color: darkgray;
+}
+
+#pagination,
+#tagField,
+#history .content {
+	display: flex;
+}
+
+.editForm,
+#avatarForm,
+#bottomBar,
+#topBar,
+#bottomBar .fas {
+	display: none;
+}
+
+#topBar .ui.label,
+#tagField .tag {
+	font-size: 14px;
+}
+
+#tagField,
+#history .content {
+	flex-wrap: wrap;
+}
+
+.ui.message, 
+.ui.massive.message,
+#avatarButton,
+#menu,
+#show h1 {
+	margin: 0;
+}
+
+.textBody,
+#mainContainer,
+#matchless,
+#pagination,
+#searchBar {
+	margin-top: 50px;
+}
+
+#commentSection,
+#history {
+	margin-top: 100px;
+}
+
+#bottomBar,
+#topBar,
+#bottomBar .fa-heart,
+#bottomBar .fa-thumbs-up {
+	position: absolute;
+}
+
+#bottomBar .fa-thumbs-up,
+#bottomBar .fa-heart {
+	bottom: 5px;
+}
+
+.ui.message,
+#authMessage,
+#matchless,
+#searchBar {
+	text-align: center;
+}
+
+#userForm,
+#searchBar .icon.input,
+#tagField #tags {
+	width: 35%;
+}
+
+.meta,
+#avatarButton,
+#topBar,
+#bottomBar,
+#tagField label,
+#gallery .ui.card,
+#history .header {
+	width: 100%;
+}
+
+/* General */
+
 .textBody {
-	margin-top: 40px;
-	white-space: pre-line;
 	font-size: 20px;
+	white-space: pre-line;
 }
 
 .meta {
@@ -13,8 +107,6 @@
 }
 
 #pagination {
-	margin-top: 50px;
-	display: flex;
 	justify-content: center;
 }
 
@@ -24,42 +116,14 @@
 
 /* Header */
 
-.ui.message {
-	margin: 0;
-	text-align: center;
-}
-
-#menu {
-	margin: 0;
-}
-
 #menu .item {
 	font-size: 1.25rem;
-}
-
-#mainContainer {
-	margin-top: 50px;
 }
 
 /* Pieces Index */
 
 .ui.massive.message {
-	margin: 0;
 	padding: 100px 20%;
-}
-
-#searchBar {
-	margin-top: 30px;
-	text-align: center;
-}
-
-#searchBar .icon.input {
-	width: 35%;
-}
-
-#matchless {
-	margin-top: 70px;
-	text-align: center;
 }
 
 #gallery {
@@ -68,50 +132,28 @@
 
 #gallery .ui.card {
 	margin: 1.6%;
-	width: 100%;
-	padding: 5px 0 15px 0;
+	padding: 14px 0;
 }
 
 #topBar {
-	background-color: darkgray;
-	position: absolute;
-	display: none;
-	width: 100%;	
-	height: 35px;
+	height: 32px;
 	top: 0px;
 }
 
-#topBar .ui.label {
-	font-size: 16px;
-	background-color: darkgray;
-}
-
 #bottomBar {
-	background-color: darkgray;
 	font-size: 30px;
-	position: absolute;
-	display: none;
-	width: 100%;	
 	height: 40px;
 	bottom: 0px;
 }
 
-#bottomBar .fas {
-	display: none;
-}
-
 #bottomBar .fa-thumbs-up {
 	color: steelblue;
-	position: absolute;
 	right: 15px;
-	bottom: 5px;
 }
 
 #bottomBar .fa-heart {
 	color: indianRed;
-	position: absolute;
 	left: 15px;
-	bottom: 5px;
 }
 
 @media only screen and (max-width: 992px) {
@@ -124,7 +166,6 @@
 
 #userForm {
 	margin: 120px auto;
-	width: 40%;
 }
 
 #textForm {
@@ -136,38 +177,19 @@
 	margin-right: 30px;
 }
 
-#tagField {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-}
-
-#tagField label {
-	width: 100%;
-}
-
-#tagField #tags {
-	width: 30%;
-}
-
 #tagField .tag {
 	background-color: lightgray;
-	font-size: 14px;
 	margin-right: 10px;
 	padding: 5px 10px;
 }
 
 /* Piece Show */
 
-#show #header {
-	margin: 0;
-}
-
-#show #image {
+#show img {
 	margin: 30px auto;
 }
 
-#pieceOwnerButtons {
+#ownerButtons {
 	text-align: right;
 }
 
@@ -176,22 +198,16 @@
 }
 
 #commentSection {
-	margin-top: 100px;
 	font-size: 18px;
 }
 
 #authMessage {
 	background-color: whiteSmoke;
-	text-align: center;
 	line-height: 100px;
 }
 
 #authMessage a {
 	color: #0066CC;
-}
-
-.editForm {
-	display: none;
 }
 
 /* Profile */
@@ -201,30 +217,12 @@
 	font-size: 20px;
 }
 
-
-#avatarButton {
-	margin: 0;
-	width: 100%;
-}
-
 #avatarForm {
-	display: none;
 	border: 1px solid steelblue;
 }
 
-#history {
-	margin-top: 100px;
-}
-
 #history .content {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
 	align-content: center;
-}
-
-#history .content .header, .meta {
-	width: 100%;
 }
 
 /* Toggled Classes */
