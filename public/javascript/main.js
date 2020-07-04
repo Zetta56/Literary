@@ -11,7 +11,7 @@ $("#avatarButton").on("click", function() {
 //Piece Tags
 $("#tags").on("keypress", function(event) {
 	if(event.which === 32) {
-		let text = $(this).val().replace(/[^a-zA-Z0-9]/g, "");
+		let text = $(this).val().replace(/[^\w]/g, "");
 		if(text) {
 			$(this).before("<span class='tag'>" + text + "</span>");
 		};

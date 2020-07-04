@@ -4,12 +4,23 @@ const express = require("express"),
 	  Piece = require("../models/piece");
 
 router.get("/", async (req, res) => {
-	const max = 12,
-		  pageQuery = parseInt(req.query.page),
-		  pageNumber = pageQuery ? pageQuery: 1;
-	let pieces = await Piece.find({}).skip((max * pageNumber) - max).limit(max).exec();
-	let matches = await Piece.countDocuments().exec();
-	res.render("pieces/index", {pieces: pieces, current: pageNumber, pages: Math.ceil(matches / max)});
+	try{
+		const max = 12,
+			  pageQuery = parseInt(req.query.page),
+			  pageNumber = pageQuery ? pageQuery: 1;
+		if(req.query.search && req.query.search.length > 0) {
+			var searchRe = new RegExp(escapeRegex(req.query.search), "gi"),
+				pieces = await Piece.find({title: searchRe}).skip((max * pageNumber) - max).limit(max).exec(),
+				matches = await Piece.countDocuments({title: searchRe}).exec();
+		} else {
+			var pieces = await Piece.find({}).skip((max * pageNumber) - max).limit(max).exec(),
+				matches = await Piece.countDocuments().exec();
+		};
+		res.render("pieces/index", {pieces: pieces, current: pageNumber, pages: Math.ceil(matches / max), search: req.query.search});
+	} catch(err) {
+		req.flash("error", err.message);
+		res.redirect("back");
+	};
 });
 
 router.get("/new", middleware.LoggedIn, (req, res) => {
@@ -95,5 +106,9 @@ router.get("/:id/likes", middleware.LoggedIn, async (req, res) => {
 		res.redirect("back");
 	};
 });
+
+function escapeRegex(string) {
+    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
 
 module.exports = router;
