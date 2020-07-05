@@ -1,6 +1,49 @@
-<%- include("./partials/header") %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Literary</title>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/landing.css">
+	</head>
+	<body>
+		<% if(error.length > 0) { %>
+			<div class="ui negative message"><%= error %></div>
+		<% } %>
+		<% if(success.length > 0) { %>
+			<div class="ui positive message"><%= success %></div>
+		<% } %>
 
-<h1>Landing Page</h1>
-<a href="/pieces">To Collection</a>
+		<div id="left">
+			<h1>Literary</h1>
+			<h3>A free place to share pieces of literature</h3>
+			<a href="/pieces" class="ui large teal button">To Collection</a>
+		</div>
+		<div id="right">
+			<h2>For Those Who Like To:</h2>
+			<p>- Freely Write</p>
+			<p>- Read Distinct Pieces</p>
+			<p>- Collaborate with Others</p>
+			<img class="slides" src="/images/landing1.jpg">
+			<img class="slides" src="/images/landing2.jpg">
+			<img class="slides" src="/images/landing3.jpg">
+			<img class="slides" src="/images/landing4.jpg">
+			<div>
+				<button class="ui black button" id="previous">&lt;</button>
+				<button class="ui black button" id="next">&gt;</button>
+			</div>
+			
+		</div>
 
-<%- include("./partials/footer") %>
+		<script
+			type="text/javascript"
+			src="https://code.jquery.com/jquery-3.5.1.min.js"
+			integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+			crossorigin="anonymous">
+		</script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+		<script type="text/javascript" src="/javascript/index.js"></script>
+	</body>
+</html>

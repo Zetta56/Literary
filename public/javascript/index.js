@@ -1,12 +1,38 @@
-//Show & Hide Edit Comment Form
-$(".editButton").on("click", function() {
-	$(this).siblings(".editForm").slideToggle();
+//Landing Slideshow
+var slideIndex = 0;
+$(".slides:eq(" + slideIndex + ")").show();
+
+$("#previous").on("click", function() {
+	slideIndex += -1;
+	if(slideIndex < 0) {
+		slideIndex = 3;
+		$(".slides:eq(0)").hide("slide", {direction: "right"}, 500);
+	} else {
+		$(".slides:eq(" + (slideIndex + 1) + ")").hide("slide", {direction: "right"}, 500);
+	};
+	$(".slides:eq(" + slideIndex + ")").show("slide", {direction: "left"}, 500);
+});
+
+$("#next").on("click", function() {
+	slideIndex += 1;
+	if(slideIndex > 3) {
+		slideIndex = 0;
+		$(".slides:eq(3)").hide("slide", {direction: "left"}, 500);
+	} else {
+		$(".slides:eq(" + (slideIndex - 1) + ")").hide("slide", {direction: "left"}, 500);
+	};
+	$(".slides:eq(" + slideIndex + ")").show("slide", {direction: "right"}, 500);
 });
 
 //Show & Hide Avatar Form
 $("#avatarButton").on("click", function() {
 	$(this).siblings("#avatarForm").slideToggle();
-})
+});
+
+//Show & Hide Edit Comment Form
+$(".editButton").on("click", function() {
+	$(this).siblings(".editForm").slideToggle();
+});
 
 //Piece Tags
 $("#tags").on("keypress", function(event) {

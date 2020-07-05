@@ -160,8 +160,32 @@
 	.ui.massive.message {
 		padding: 50px 8%;
 	}
+	.ui.massive.message h1 {
+		font-size: 30px;
+	}
+	.ui.massive.message p {
+		font-size: 18px;
+	}
 }
-	
+
+@media only screen and (min-width: 768px) {
+	#gallery .ui.card {
+		min-height: 800px;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	#gallery .ui.card {
+		min-height: 650px;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	#gallery .ui.card {
+		min-height: 450px;
+	}
+}
+
 /* Forms */
 
 #userForm {

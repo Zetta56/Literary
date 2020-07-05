@@ -1,4 +1,3 @@
-//change profile pagination links
 //style landing page
 //add saved pieces
 //notifications?

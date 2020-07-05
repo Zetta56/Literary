@@ -1,0 +1,86 @@
+body {
+	background: linear-gradient(110deg, rgba(0, 0, 0, 0.9) 50%, rgba(255, 255, 255, 0) 50%);
+}
+
+#left, #right {
+	margin: 0 5%;
+	position: absolute;
+	text-align: center;
+	width: 40%;
+}
+
+#left {
+	color: white;
+	top: 35vh;
+}
+
+#left h1 {
+	font-size: 90px;
+}
+
+#left h3 {
+	font-size: 30px;
+}
+
+#right {
+	top: 25vh;
+}
+
+#right h2 {
+	font-size: 35px;
+}
+
+#right p {
+	font-size: 22px;
+}
+
+#right .slides {
+	display: none;
+}
+
+#right .ui-effects-placeholder {
+	display: none !important;
+}
+
+@media only screen and (min-width: 993px) {
+	#right {
+		right: 0;
+	}
+}
+
+@media only screen and (max-width: 1300px) {
+	#left h1 {
+		font-size: 75px;
+	}
+	#left h3{
+		font-size: 25px;
+	}
+	#right h2 {
+		font-size: 30px;
+	}
+	#right p {
+		font-size: 18px;
+	}
+	#right img {
+		width: 75%;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	body {
+		background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 40%, rgba(255, 255, 255, 0) 40%);
+	}
+	#left, #right {
+		margin: 0;
+		width: 100%;
+	}
+	#left {
+		top: 6.5vh;
+	}
+	#right {
+		top: 43vh;
+	}
+	#right img {
+		width: 450px;
+	}
+}

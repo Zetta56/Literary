@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
 			  pageQuery = parseInt(req.query.page),
 			  pageNumber = pageQuery ? pageQuery : 1;
 		let foundPieces = await Piece.find({"author.id": {$in: [req.params.user_id]}}).skip((max * pageNumber) - max).limit(max).exec();
-		let matches = await Piece.countDocuments().exec();
+		let matches = await Piece.countDocuments({"author.id": {$in: [req.params.user_id]}}).exec();
 		let foundUser = await User.findById(req.params.user_id);
 		res.render("users/show", {user: foundUser, pieces: foundPieces, current: pageNumber, pages: Math.ceil((matches / max))});
 	} catch(err) {
