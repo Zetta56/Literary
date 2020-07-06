@@ -1,3 +1,12 @@
+//Landing Load Animation
+$(document).ready(function() {
+	$("#left").show("slide", {direction: "up"}, 1000);
+});
+
+$(document).ready(function() {
+	$("#right").show("slide", {direction: "down"}, 1000);
+});
+
 //Landing Slideshow
 var slideIndex = 0;
 $(".slides:eq(" + slideIndex + ")").show();
@@ -76,13 +85,13 @@ $(".far").hover(function() {
 });
 
 $(".far.fa-thumbs-up").hover(function() {
-	$(this).siblings("a").find(".fas.fa-thumbs-up").show();
+	$(this).parents("a").siblings("a").find(".fas.fa-thumbs-up").show();
 }, function() {
-	$(this).siblings("a").find(".fas.fa-thumbs-up").hide();
+	$(this).parents("a").siblings("a").find(".fas.fa-thumbs-up").hide();
 });
 
 $(".far.fa-heart").hover(function() {
-	$(this).siblings("a").find(".fas.fa-heart").show();
+	$(this).parents("a").siblings("a").find(".fas.fa-heart").show();
 }, function() {
-	$(this).siblings("a").find(".fas.fa-heart").hide();
+	$(this).parents("a").siblings("a").find(".fas.fa-heart").hide();
 });

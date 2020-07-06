@@ -255,12 +255,12 @@
 	background: linear-gradient(180deg, rgba(128, 128, 128, 0.05) 20%, rgba(128, 128, 128, 0.4) 90%) !important;
 }
 
-.like {
+.liked {
 	color: green !important;
 	display: inline !important;
 }
 
-.save {
+.saved {
 	color: red !important;
 	display: inline !important;
 }

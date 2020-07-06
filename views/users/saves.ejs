@@ -1,0 +1,25 @@
+<%- include("../partials/header") %>
+
+<div id="mainContainer" class="ui container">
+	<div class="ui items" id="history">
+		<h2>Saved Pieces:</h2>
+		<% user["saves"].forEach(save => { %>
+			<div class="item">
+				<div class="image">
+					<% if(save["image"]) { %>
+						<img src="<%= save["image"] %>">
+					<% } else { %>
+						<img src="/images/placeholder.jpg">
+					<% } %>
+				</div>
+				<div class="content">
+					<div class="header"><a href="/pieces/<%= save["_id"] %>"><%= save["title"] %></a></div>
+					<div class="meta"><%= moment(save["created"]).fromNow() %></div>
+					<div class="description"><%= save["body"].slice(0, 400) %>...</div>
+				</div>
+			</div>
+		<% }) %>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

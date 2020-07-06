@@ -28,7 +28,6 @@ router.get("/edit", middleware.AuthorizedUser, async (req, res) => {
 		res.redirect("back");
 	};
 })
-
 router.put("/",  middleware.AuthorizedUser, async (req, res) => {
 	try {
 		await User.findByIdAndUpdate(req.params.user_id, req.body.user);
@@ -51,6 +50,36 @@ router.put("/avatar", middleware.AuthorizedUser, async (req, res) => {
 		req.flash("error", err.message);
 		res.redirect("back");
 	}
+});
+
+router.get("/saves", async(req, res) => {
+	try {
+		let foundUser = await User.findById(req.params.user_id).populate("saves").exec();
+		res.render("users/saves", {user: foundUser});
+	} catch(err) {
+		req.flash("error", err.message);
+		res.redirect("back");
+	};
+});
+
+router.get("/saves/:id", async (req, res) => {
+	try {
+		let foundPiece = await Piece.findById(req.params.id);
+		let foundUser = await User.findById(req.params.user_id);
+		let saved = foundUser.saves.some(save => {
+			return save.equals(foundPiece._id);
+		});
+		if(saved) {
+			await foundUser.saves.pull(foundPiece._id);
+		} else {
+			await foundUser.saves.push(foundPiece._id);
+		};
+		foundUser.save();
+		res.redirect("back");
+	} catch(err) {
+		req.flash("error", err.message);
+		res.redirect("back");
+	};
 });
 
 module.exports = router;

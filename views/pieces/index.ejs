@@ -41,13 +41,27 @@
 								<% if(currentUser && piece["likes"].some(like => {
 									return like.equals(currentUser._id);
 								})) { %>
-									<a href="/pieces/<%= piece["_id"] %>/likes"><i class="fas fa-thumbs-up like"></i></a>
+									<a href="/pieces/<%= piece["_id"] %>/likes"><i class="fas fa-thumbs-up liked"></i></a>
 								<% } else { %>
-									<i class="far fa-thumbs-up"></i>
+									<a href="/pieces/<%= piece["_id"] %>/likes"><i class="far fa-thumbs-up"></i></a>
 									<a href="/pieces/<%= piece["_id"] %>/likes"><i class="fas fa-thumbs-up"></i></a>
 								<% } %>
-								<i class="far fa-heart"></i>
-									<a><i class="fas fa-heart"></i></a>
+								
+								<% if(!currentUser) { %>
+									<% let currentUser = "placeholder" %>
+									<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>"><i class="far fa-heart"></i></a>
+									<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>"><i class="fas fa-heart"></i></a>
+								<% } %>
+								<% if(currentUser) { %>
+									<% if(currentUser.saves.some(save => {
+										return save.equals(piece._id);
+									})) { %>
+										<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>"><i class="fas fa-heart saved"></i></a>
+									<% } else { %>
+										<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>"><i class="far fa-heart"></i></a>
+										<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>"><i class="fas fa-heart"></i></a>
+									<% } %>
+								<% } %>
 							</div>
 						</div>
 					</div>

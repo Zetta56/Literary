@@ -23,9 +23,22 @@
 			<% if(currentUser && piece["likes"].some(like => {
 				return like.equals(currentUser._id);
 			})) { %>
-				<p><a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini green button">Liked!</a></p>
+				<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini green button">Liked!</a>
 			<% } else { %>
 				<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini blue button">Like</a>
+			<% } %>
+			<% if(!currentUser) { %>
+				<% let currentUser = "placeholder" %>
+				<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini pink button">Save</a>
+			<% } %>
+			<% if(currentUser) { %>
+				<% if(currentUser.saves.some(save => {
+					return save.equals(piece._id);
+				})) { %>
+					<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini red button">Saved!</a>
+				<% } else { %>
+					<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini pink button">Save</a>
+				<% } %>
 			<% } %>
 			<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
 				<div id="ownerButtons">

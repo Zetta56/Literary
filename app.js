@@ -1,4 +1,3 @@
-//style landing page
 //add saved pieces
 //notifications?
 

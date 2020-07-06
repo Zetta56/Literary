@@ -7,7 +7,13 @@ const userSchema = new mongoose.Schema({
 	email: String,
 	avatar: {type: String, default: "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"},
 	username: String,
-	password: String
+	password: String,
+	saves: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Piece"
+		}
+	]
 })
 
 userSchema.plugin(passportLocalMongoose);

@@ -26,7 +26,6 @@ router.get("/", async (req, res) => {
 router.get("/new", middleware.LoggedIn, (req, res) => {
 	res.render("pieces/new");
 });
-
 router.post("/", middleware.LoggedIn, async (req, res) => {
 	try {
 		let newPiece = await Piece.create(req.body.piece);
@@ -87,7 +86,6 @@ router.delete("/:id", middleware.AuthorizedPiece, async (req, res) => {
 		res.redirect("back");
 	}
 })
-
 router.get("/:id/likes", middleware.LoggedIn, async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
@@ -100,7 +98,7 @@ router.get("/:id/likes", middleware.LoggedIn, async (req, res) => {
 			await foundPiece.likes.push(req.user._id);
 		};
 		foundPiece.save();
-		res.redirect("/pieces");
+		res.redirect("back");
 	} catch(err) {
 		req.flash("error", err.message);
 		res.redirect("back");
