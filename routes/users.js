@@ -71,8 +71,10 @@ router.get("/saves/:id", async (req, res) => {
 		});
 		if(saved) {
 			await foundUser.saves.pull(foundPiece._id);
+			req.flash("error", "Unsaved '" + foundPiece.title + "'");
 		} else {
 			await foundUser.saves.push(foundPiece._id);
+			req.flash("success", "Saved '" + foundPiece.title + "'");
 		};
 		foundUser.save();
 		res.redirect("back");

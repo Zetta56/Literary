@@ -156,36 +156,6 @@
 	left: 15px;
 }
 
-@media only screen and (max-width: 992px) {
-	.ui.massive.message {
-		padding: 50px 8%;
-	}
-	.ui.massive.message h1 {
-		font-size: 30px;
-	}
-	.ui.massive.message p {
-		font-size: 18px;
-	}
-}
-
-@media only screen and (min-width: 768px) {
-	#gallery .ui.card {
-		min-height: 800px;
-	}
-}
-
-@media only screen and (min-width: 992px) {
-	#gallery .ui.card {
-		min-height: 650px;
-	}
-}
-
-@media only screen and (min-width: 1200px) {
-	#gallery .ui.card {
-		min-height: 450px;
-	}
-}
-
 /* Forms */
 
 #userForm {
@@ -225,6 +195,10 @@
 	font-size: 18px;
 }
 
+#commentSection .ui.avatar.image {
+	margin-right: 10px;
+}
+
 #authMessage {
 	background-color: whiteSmoke;
 	line-height: 100px;
@@ -247,6 +221,53 @@
 
 #history .content {
 	align-content: center;
+}
+
+/* Responsive Styles */
+
+@media only screen and (max-width: 1200px) {
+	#userForm {
+		width: 55%;
+	}
+}
+
+@media only screen and (max-width: 991px) {
+	.ui.massive.message {
+		padding: 50px 8%;
+	}
+	.ui.massive.message h1 {
+		font-size: 30px;
+	}
+	.ui.massive.message p {
+		font-size: 18px;
+	}
+	#userForm {
+		width: 80%;
+	}
+}
+	
+@media only screen and (min-width: 768px) {
+	#gallery .column {
+		width: 50%;
+	}
+	#gallery .ui.card {
+		min-height: 500px;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	#gallery .ui.card {
+		min-height: 400px;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	#gallery .column {
+		width: 33%;
+	}
+	#gallery .ui.card {
+		min-height: 450px;
+	}
 }
 
 /* Toggled Classes */

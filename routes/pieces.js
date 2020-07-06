@@ -44,7 +44,7 @@ router.post("/", middleware.LoggedIn, async (req, res) => {
 
 router.get("/:id", async(req, res) => {
 	try {
-		let foundPiece = await Piece.findById(req.params.id).populate("comments").exec();
+		let foundPiece = await Piece.findById(req.params.id).populate({path: "comments", populate: {path: "author.id"}}).exec();
 		res.render("pieces/show", {piece: foundPiece});
 	} catch(err) {
 		req.flash("error", err.message);
@@ -94,8 +94,10 @@ router.get("/:id/likes", middleware.LoggedIn, async (req, res) => {
 		});
 		if(liked) {
 			await foundPiece.likes.pull(req.user._id);
+			req.flash("error", "Unliked '" + foundPiece.title + "'");
 		} else {
 			await foundPiece.likes.push(req.user._id);
+			req.flash("success", "Liked '" + foundPiece.title + "'");
 		};
 		foundPiece.save();
 		res.redirect("back");

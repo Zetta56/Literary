@@ -23,7 +23,8 @@ const Piece = require("./models/piece"),
 const piecesRoutes = require("./routes/pieces"),
 	  commentRoutes = require("./routes/comments"),
 	  userRoutes = require("./routes/users"),
-	  indexRoutes = require("./routes/index");
+	  indexRoutes = require("./routes/index"),
+	  seedDB = require("./seeds");
 
 //App Config
 require("dotenv").config();
@@ -59,6 +60,9 @@ app.use("/pieces", piecesRoutes);
 app.use("/pieces/:id/comments", commentRoutes);
 app.use("/users/:user_id", userRoutes)
 app.use("/", indexRoutes);
+
+//SeedDB
+// seedDB();
 
 //Server
 app.listen(process.env.PORT || 3000, () => {
