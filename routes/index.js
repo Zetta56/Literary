@@ -54,4 +54,8 @@ router.get("/logout", middleware.LoggedIn, (req, res) => {
 	};
 });
 
+router.get("/missing", (req, res) => {
+	res.render("missing");
+});
+
 module.exports = router;

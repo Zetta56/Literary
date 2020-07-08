@@ -1,6 +1,3 @@
-//add saved pieces
-//notifications?
-
 //Packages
 const express = require("express"),
 	  app = express(),
@@ -17,12 +14,14 @@ const express = require("express"),
 //Models
 const Piece = require("./models/piece"),
 	  Comment = require("./models/comment"),
-	  User = require("./models/user");
+	  User = require("./models/user"),
+	  Notification = require("./models/notification");	
 
 //Routes
 const piecesRoutes = require("./routes/pieces"),
 	  commentRoutes = require("./routes/comments"),
 	  userRoutes = require("./routes/users"),
+	  notificationRoutes = require("./routes/notifications"),
 	  indexRoutes = require("./routes/index"),
 	  seedDB = require("./seeds");
 
@@ -48,17 +47,22 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
 	res.locals.error = req.flash("error");
 	res.locals.success = req.flash("success");
 	res.locals.currentUser = req.user;
+	if(req.user) {
+		let foundUser = await User.findById(req.user._id).populate("notifications", null, {isRead: false}).exec();
+		res.locals.notifications = foundUser.notifications.reverse();
+	};
 	next();
 })
 
 //Routes
 app.use("/pieces", piecesRoutes);
 app.use("/pieces/:id/comments", commentRoutes);
-app.use("/users/:user_id", userRoutes)
+app.use("/users/:user_id", userRoutes);
+app.use("/notifications", notificationRoutes);
 app.use("/", indexRoutes);
 
 //SeedDB

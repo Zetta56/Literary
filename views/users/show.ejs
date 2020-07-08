@@ -5,12 +5,25 @@
 	<div class="ui grid">
 		<div class="six wide column">
 			<img src="<%= user["avatar"] %>" class="ui fluid image">
-			<% if(currentUser && user["_id"].equals(currentUser._id)) { %>
-				<button class="ui primary button" id="avatarButton">Change Avatar</button>
+			<% if(currentUser) { %>
+				<% if(user["_id"].equals(currentUser._id)) { %>
+					<button class="ui primary button" id="avatarButton">Change Avatar</button>
+					<form action="/users/<%= user["_id"] %>/avatar?_method=PUT" method="POST" class="ui form" id="avatarForm">
+						<input type="text" placeholder="Avatar URL" name="avatar" required>
+					</form>
+				<% } %>
+				<% if(user["followers"].some(follower => {
+					return follower.equals(currentUser._id)
+				})) { %>
+					<form action="/users/<%= user["_id"] %>/follow" method="POST">
+						<button class="ui purple button">Unfollow</button>
+					</form>
+				<% } else { %>
+					<form action="/users/<%= user["_id"] %>/follow" method="POST">
+						<button class="ui violet button">Follow</button>
+					</form>
+				<% } %>
 			<% } %>
-			<form action="/users/<%= user["_id"] %>/avatar?_method=PUT" method="POST" class="ui form" id="avatarForm">
-				<input type="text" placeholder="Avatar URL" name="avatar" required>
-			</form>
 		</div>
 		<div id="userInfo" class="ten wide column">
 			<div class="ui two column grid">

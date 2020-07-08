@@ -120,6 +120,12 @@
 	font-size: 1.25rem;
 }
 
+#menu .item .ui.red.label {
+	bottom: 10px;
+	padding: 2px 5px;
+	position: absolute;
+}
+
 /* Pieces Index */
 
 .ui.massive.message {
@@ -196,7 +202,7 @@
 }
 
 #commentSection .ui.avatar.image {
-	margin-right: 10px;
+	margin: 0 10px;
 }
 
 #authMessage {
@@ -221,6 +227,29 @@
 
 #history .content {
 	align-content: center;
+}
+
+/* Notifications */
+
+#followingBox {
+	background-color: whitesmoke;
+	border: 1px solid lightgray;
+	padding: 0;
+	text-align: center;
+}
+
+#followingBox h2, 
+#followingBox div {
+	padding: 10px 0;
+}
+
+#followingBox h2 {
+	background-color: lightgray;
+}
+
+#followingBox h3 {
+	display: inline;
+	font-size: 22px;
 }
 
 /* Responsive Styles */
@@ -272,8 +301,8 @@
 
 /* Toggled Classes */
 
-.shaded {
-	background: linear-gradient(180deg, rgba(128, 128, 128, 0.05) 20%, rgba(128, 128, 128, 0.4) 90%) !important;
+.gray {
+	background-color: gray !important;
 }
 
 .liked {
@@ -284,4 +313,8 @@
 .saved {
 	color: red !important;
 	display: inline !important;
+}
+
+.shaded {
+	background: linear-gradient(180deg, rgba(128, 128, 128, 0.05) 20%, rgba(128, 128, 128, 0.4) 90%) !important;
 }

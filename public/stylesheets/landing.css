@@ -4,6 +4,7 @@ body {
 
 #left, #right {
 	display: none;
+	height: 100%;
 	margin: 0 5%;
 	position: absolute;
 	text-align: center;
@@ -12,7 +13,7 @@ body {
 
 #left {
 	color: white;
-	top: 35vh;
+	padding-top: 35vh;
 }
 
 #left h1 {
@@ -24,7 +25,7 @@ body {
 }
 
 #right {
-	top: 25vh;
+	padding-top: 25vh;
 }
 
 #right h2 {
@@ -63,7 +64,7 @@ body {
 		font-size: 18px;
 	}
 	#right img {
-		width: 75%;
+		width: 350px;
 	}
 }
 
@@ -76,12 +77,12 @@ body {
 		width: 100%;
 	}
 	#left {
-		top: 6.5vh;
+		padding-top: 6.5vh;
 	}
 	#right {
-		top: 43vh;
+		padding-top: 43vh;
 	}
 	#right img {
-		width: 450px;
+		width: 400px;
 	}
 }

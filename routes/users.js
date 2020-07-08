@@ -52,7 +52,7 @@ router.put("/avatar", middleware.AuthorizedUser, async (req, res) => {
 	}
 });
 
-router.get("/saves", async(req, res) => {
+router.get("/saves", async (req, res) => {
 	try {
 		let foundUser = await User.findById(req.params.user_id).populate("saves").exec();
 		res.render("users/saves", {user: foundUser});
@@ -61,7 +61,6 @@ router.get("/saves", async(req, res) => {
 		res.redirect("back");
 	};
 });
-
 router.get("/saves/:id", async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
@@ -75,6 +74,27 @@ router.get("/saves/:id", async (req, res) => {
 		} else {
 			await foundUser.saves.push(foundPiece._id);
 			req.flash("success", "Saved '" + foundPiece.title + "'");
+		};
+		foundUser.save();
+		res.redirect("back");
+	} catch(err) {
+		req.flash("error", err.message);
+		res.redirect("back");
+	};
+});
+
+router.post("/follow", async (req, res) => {
+	try {
+		let foundUser = await User.findById(req.params.user_id);
+		let followed = foundUser.followers.some(follower => {
+			return follower.equals(req.user._id);
+		});
+		if(followed) {
+			await foundUser.followers.pull(req.user._id);
+			req.flash("error", "Unfollowed '" + foundUser.username + "'");
+		} else {
+			await foundUser.followers.push(req.user._id);
+			req.flash("success", "Followed '" + foundUser.username + "'");
 		};
 		foundUser.save();
 		res.redirect("back");

@@ -71,7 +71,7 @@
 								<div>
 									<strong>
 										<img class="ui avatar image" src="<%= comment["author"]["id"]["avatar"] %>">
-										<a href="/users/<%= comment["author"]["id"] %>"><%= comment["author"]["username"] %></a>
+										<a href="/users/<%= comment["author"]["id"]["_id"] %>"><%= comment["author"]["id"]["username"] %></a>
 									</strong>
 									<em>, <%= moment(comment["created"]).fromNow() %></em>
 								</div>

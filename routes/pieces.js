@@ -1,7 +1,9 @@
 const express = require("express"),
 	  router = express.Router(),
 	  middleware = require("../middleware/index"),
-	  Piece = require("../models/piece");
+	  Piece = require("../models/piece"),
+	  User = require("../models/user"),
+	  Notification = require("../models/notification");
 
 router.get("/", async (req, res) => {
 	try{
@@ -34,6 +36,16 @@ router.post("/", middleware.LoggedIn, async (req, res) => {
 		newPiece.author.username = req.user.username;
 		newPiece.tags = tagsArray;
 		newPiece.save();
+		let newNotification = await Notification.create({
+			author: req.user.username,
+			pieceId: newPiece._id,
+			notificationType: "Piece"
+		})
+		let author = await User.findById(req.user._id).populate("followers").exec();
+		author.followers.forEach(follower => {
+			follower.notifications.push(newNotification);
+			follower.save();
+		});
 		req.flash("success", "Piece successfully uploaded!");
 		res.redirect("/pieces");
 	} catch(err) {
@@ -84,8 +96,8 @@ router.delete("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	} catch(err) {
 		req.flash("error", err.message);
 		res.redirect("back");
-	}
-})
+	};
+});
 router.get("/:id/likes", middleware.LoggedIn, async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);

@@ -1,0 +1,71 @@
+<%- include("./partials/header") %>
+
+<div id="mainContainer" class="ui container">
+	<div class="ui grid">
+		<div class="twelve wide column">
+			<div class="ui items" id="history">
+				<h1>Notifications:</h1>
+				<% notificationsEx.forEach(notification => { %>
+					<hr>
+					<% if(notification["notificationType"] === "Piece") { %>
+						<% if(!notification["pieceId"]) { %>
+							<h3><%= notification["author"] %> has made a new
+								<a href="/missing">piece!</a>
+							</h3>
+						<% } else { %>
+							<h3><%= notification["author"] %> has made a new
+								<a href="/pieces/<%= notification["pieceId"]["id"] %>">piece!</a>
+							</h3>
+							<div class="item">
+								<div class="image">
+									<% if(notification["pieceId"]["image"]) { %>
+										<img src="<%= notification["pieceId"]["image"] %>">
+									<% } else { %>
+										<img src="/images/defaultImage.jpg">
+									<% } %>
+								</div>
+								<div class="content">
+									<div class="header">
+										<a href="/pieces/<%= notification["pieceId"]["_id"] %>"><%= notification["pieceId"]["title"] %></a>
+									</div>
+									<div class="meta"><%= moment(notification["pieceId"]["created"]).fromNow() %></div>
+									<div class="description"><%= notification["pieceId"]["body"].slice(0, 400) %>...</div>
+								</div>
+							</div>
+						<% } %>
+					<% } else { %>
+						<% if(!notification["comment"]) { %>
+							<h3><%= notification["author"] %> has made a new
+								<a href="/missing">comment!</a>
+							</h3>
+						<% } else { %>
+							<h3><%= notification["author"] %> has made a new
+								<a href="/pieces/<%= notification["comment"]["matchingPiece"] %>">comment!</a>
+							</h3>
+							<div class="item">
+								<div class="content">
+									<div class="description"><%= notification["comment"]["id"]["body"] %></div>
+									<div class="meta"><em><%= moment(notification.comment.id.created).fromNow() %></em></div>
+								</div>
+							</div>
+						<% } %>
+					<% } %>
+					<form action="/notifications/<%= notification["_id"] %>?_method=DELETE" method="POST">
+						<button class="ui mini red button">Remove</button>
+					</form>
+				<% }) %>
+			</div>
+		</div>
+		<div class="four wide column" id="followingBox">
+			<h2>Following:</h2>
+			<% followedUsers.forEach(user => { %>
+				<div>
+					<img class="ui avatar image" src="<%= user["avatar"] %>">
+					<h3><a href="users/<%= user["_id"] %>"><%= user["username"] %></a></h3>
+				</div>
+			<% }) %>
+		</div>
+	</div>
+</div>
+
+<%- include("./partials/footer") %>

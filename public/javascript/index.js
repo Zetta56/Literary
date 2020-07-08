@@ -1,36 +1,24 @@
 //Landing Load Animation
 $(document).ready(function() {
 	$("#left").show("slide", {direction: "up"}, 1000);
-});
-
-$(document).ready(function() {
 	$("#right").show("slide", {direction: "down"}, 1000);
 });
 
 //Landing Slideshow
 var slideIndex = 0;
+var slideOff = 0
 $(".slides:eq(" + slideIndex + ")").show();
 
 $("#previous").on("click", function() {
-	slideIndex += -1;
-	if(slideIndex < 0) {
-		slideIndex = 3;
-		$(".slides:eq(0)").hide("slide", {direction: "right"}, 500);
-	} else {
-		$(".slides:eq(" + (slideIndex + 1) + ")").hide("slide", {direction: "right"}, 500);
-	};
-	$(".slides:eq(" + slideIndex + ")").show("slide", {direction: "left"}, 500);
+	slideIndex = (slideIndex === 0) ? 3 : slideIndex += -1;
+	slideOff = (slideIndex === 3) ? 0 : slideIndex + 1;
+	slideTo("previous")
 });
 
 $("#next").on("click", function() {
-	slideIndex += 1;
-	if(slideIndex > 3) {
-		slideIndex = 0;
-		$(".slides:eq(3)").hide("slide", {direction: "left"}, 500);
-	} else {
-		$(".slides:eq(" + (slideIndex - 1) + ")").hide("slide", {direction: "left"}, 500);
-	};
-	$(".slides:eq(" + slideIndex + ")").show("slide", {direction: "right"}, 500);
+	slideIndex = (slideIndex === 3) ? 0 : slideIndex += 1;
+	slideOff = (slideIndex === 0) ? 3 : slideIndex - 1;
+	slideTo("next");
 });
 
 //Show & Hide Avatar Form
@@ -78,7 +66,7 @@ $(".indexCard").hover(function() {
 });
 
 //Icons Hover Effect
-$(".far").hover(function() {
+$(".replaced").hover(function() {
 	$(this).hide();
 }, function() {
 	$(this).show();
@@ -95,3 +83,18 @@ $(".far.fa-heart").hover(function() {
 }, function() {
 	$(this).parents("a").siblings("a").find(".fas.fa-heart").hide();
 });
+
+function slideTo(type) {
+	if(type === "previous") {
+		var d1 = "right",
+			d2 = "left";
+	};
+	if(type === "next") {
+		var d1 = "left",
+			d2 = "right";
+	};
+	$(".slides:eq(" + slideOff + ")").hide("slide", {direction: d1}, 500);
+	$(".slides:eq(" + slideIndex + ")").show("slide", {direction: d2}, 500);
+	$(".circular:eq(" + slideOff + ")").removeClass("gray");
+	$(".circular:eq(" + slideIndex + ")").addClass("gray");
+};

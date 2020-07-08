@@ -16,6 +16,25 @@
 						<a href="/login" class="item">Sign In</a>
 						<a href="/register" class="item">Register</a>
 					<% } else { %>
+						<div class="ui simple dropdown item">
+							<i class="far fa-envelope"></i>
+							<% if(notifications.length > 0) { %>
+								<div class="ui red label"><%= notifications.length %></div>
+							<% } %>
+							<div class="menu">
+								<a href="/notifications" class="item">View All Notifications</a>
+								<% notifications.forEach(notification => { %>
+									<a href="/notifications/<%= notification["_id"] %>" class="item">
+										<%= notification["author"] %> has created a new
+										<% if(notification["notificationType"] === "Piece") { %>
+											piece %>
+										<% } else { %>
+											comment %>
+										<% } %>
+									</a>
+								<% }) %>
+							</div>
+						</div>
 						<a href="/users/<%= currentUser._id %>/saves" class="item">Saved Pieces</a>
 						<a href="/users/<%= currentUser._id %>" class="item">Profile</a>
 						<a href="/logout" class="item">Logout</a>

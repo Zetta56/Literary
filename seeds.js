@@ -8,6 +8,7 @@ async function seedDB() {
 		await Piece.deleteMany({});
 		await Comment.deleteMany({});
 		await User.deleteMany({});
+		await Notification.deleteMany({});
 		console.log("Resetted Database");
 	} catch(err) {
 		console.log(err);

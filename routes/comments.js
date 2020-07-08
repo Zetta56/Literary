@@ -2,7 +2,9 @@ const express = require("express"),
 	  router = express.Router({mergeParams: true}),
 	  middleware = require("../middleware/index"),
 	  Piece = require("../models/piece"),
-	  Comment = require("../models/comment");
+	  Comment = require("../models/comment"),
+	  User = require("../models/user"),
+	  Notification = require("../models/notification");
 
 router.post("/", middleware.LoggedIn, async (req,res) => {
 	try {
@@ -13,6 +15,18 @@ router.post("/", middleware.LoggedIn, async (req,res) => {
 		newComment.save();
 		foundPiece.comments.push(newComment);
 		foundPiece.save()
+		let newNotification = await Notification.create({
+			author: req.user.username,
+			notificationType: "Comment"
+		})
+		let author = await User.findById(req.user._id).populate("followers").exec();
+		newNotification.comment.id = newComment._id;
+		newNotification.comment.matchingPiece = req.params.id;
+		newNotification.save();
+		author.followers.forEach(follower => {
+			follower.notifications.push(newNotification);
+			follower.save();
+		});
 		req.flash("success", "Comment successfully added.");
 		res.redirect("/pieces/" + req.params.id);
 	} catch(err) {
