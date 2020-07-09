@@ -8,16 +8,50 @@
 	</head>
 	<body>
 		<!-- Menu -->
-		<div class="ui inverted menu" id="menu">
-			<div class="ui container">
-				<a href="/" class="header item">Literary</a>
-				<a href="/pieces" class="item">Literature</a>
-				<div class="right menu">
-					<% if(!currentUser) { %>
-						<a href="/login" class="item">Sign In</a>
-						<a href="/register" class="item">Register</a>
-					<% } else { %>
-						<div class="ui simple dropdown item">
+		<div class="ui grid">
+			<!-- Computer -->
+			<div class="computer only row">
+				<div class="ui inverted menu" id="menu">
+					<div class="ui container">
+						<a href="/" class="header item">Literary</a>
+						<a href="/pieces" class="item">Literature</a>
+						<div class="right menu">
+							<% if(!currentUser) { %>
+								<a href="/login" class="item">Sign In</a>
+								<a href="/register" class="item">Register</a>
+							<% } else { %>
+								<div class="ui simple dropdown item">
+									<i class="far fa-envelope"></i>
+									<% if(notifications.length > 0) { %>
+										<div class="ui red label"><%= notifications.length %></div>
+									<% } %>
+									<div class="menu">
+										<a href="/notifications" class="item">View All Notifications</a>
+										<% notifications.forEach(notification => { %>
+											<a href="/notifications/<%= notification["_id"] %>" class="item">
+												<% if(notification["notificationType"] === "Piece") { %>
+													<%= notification["author"] %> has created a new piece %>
+												<% } else { %>
+													<%= notification["author"] %> has created a new comment %>
+												<% } %>
+											</a>
+										<% }) %>
+									</div>
+								</div>
+								<a href="/users/<%= currentUser._id %>/saves" class="item">Saved Pieces</a>
+								<a href="/users/<%= currentUser._id %>" class="item">Profile</a>
+								<a href="/logout" class="item">Logout</a>
+							<% } %>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Tablet/Mobile -->
+			<div class="tablet mobile only row">
+				<div class="ui inverted menu" id="menu">
+					<a href="/" class="header item">Literary</a>
+					<% if(currentUser) { %>
+						<div class="ui simple dropdown right aligned item">
 							<i class="far fa-envelope"></i>
 							<% if(notifications.length > 0) { %>
 								<div class="ui red label"><%= notifications.length %></div>
@@ -36,6 +70,18 @@
 								<% }) %>
 							</div>
 						</div>
+						<a class="item" id="hamburger"><i class="bars icon"></i></a>
+					<% } else { %>
+						<a class="right aligned item" id="hamburger"><i class="bars icon"></i></a>
+					<% } %>
+				</div>
+				<!-- Submenu -->
+				<div class="ui inverted vertical menu" id="submenu">
+					<a href="/pieces" class="item">Literature</a>
+					<% if(!currentUser) { %>
+						<a href="/login" class="item">Sign In</a>
+						<a href="/register" class="item">Register</a>
+					<% } else { %>
 						<a href="/users/<%= currentUser._id %>/saves" class="item">Saved Pieces</a>
 						<a href="/users/<%= currentUser._id %>" class="item">Profile</a>
 						<a href="/logout" class="item">Logout</a>

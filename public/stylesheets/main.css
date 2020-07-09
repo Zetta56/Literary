@@ -16,6 +16,11 @@
 	background-color: lightgray;
 }
 
+#bottomBar .fa-thumbs-up,
+#bottomBar .fa-heart {
+	bottom: 5px;
+}
+
 #pagination,
 #tagField,
 #history .content {
@@ -30,6 +35,7 @@
 .editForm,
 #avatarForm,
 #bottomBar,
+#submenu,
 #topBar,
 #bottomBar .fas {
 	display: none;
@@ -49,6 +55,7 @@
 .ui.massive.message,
 #avatarButton,
 #menu,
+#submenu,
 #show h1 {
 	margin: 0;
 }
@@ -83,11 +90,6 @@
 	position: absolute;
 }
 
-#bottomBar .fa-thumbs-up,
-#bottomBar .fa-heart {
-	bottom: 5px;
-}
-
 .ui.message,
 #authMessage,
 #followingBox,
@@ -104,6 +106,8 @@
 
 .meta,
 #avatarButton,
+#menu,
+#submenu,
 #topBar,
 #bottomBar,
 #tagField label,
@@ -141,6 +145,10 @@
 #menu .item .ui.red.label {
 	bottom: 10px;
 	padding: 2px 5px;
+}
+
+#submenu {
+	font-size: 1rem;
 }
 
 /* Pieces Index */
@@ -263,6 +271,9 @@
 }
 
 @media only screen and (max-width: 991px) {
+	.menu {
+		padding: 0 40px;
+	}
 	.ui.massive.message {
 		padding: 50px 8%;
 	}

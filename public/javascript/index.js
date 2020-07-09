@@ -23,12 +23,17 @@ $("#next").on("click", function() {
 	slideTo("next");
 });
 
-//Show & Hide Avatar Form
+//Toggle Submenu
+$("#hamburger").on("click", function() {
+	$("#submenu").fadeToggle();
+});
+
+//Toggle Avatar Form
 $("#avatarButton").on("click", function() {
 	$(this).siblings("#avatarForm").slideToggle();
 });
 
-//Show & Hide Edit Comment Form
+//Toggle Edit Comment Form
 $(".editButton").on("click", function() {
 	$(this).siblings(".editForm").slideToggle();
 });
