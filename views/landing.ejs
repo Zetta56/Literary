@@ -8,22 +8,26 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/landing.css">
 	</head>
 	<body>
+		<!-- Flash Messages -->
 		<% if(error.length > 0) { %>
 			<div class="ui negative message"><%= error %></div>
 		<% } %>
 		<% if(success.length > 0) { %>
 			<div class="ui positive message"><%= success %></div>
 		<% } %>
+		<!-- Left Side -->
 		<div id="left">
 			<h1>Literary</h1>
 			<h3>A free place to share pieces of literature</h3>
 			<a href="/pieces" class="ui large teal button">To Collection</a>
 		</div>
+		<!-- Right Side -->
 		<div id="right">
 			<h2>For Those Who Like To:</h2>
 			<p>- Freely Write</p>
 			<p>- Read Distinct Pieces</p>
 			<p>- Collaborate with Others</p>
+			<!-- Slideshow -->
 			<img class="slides" src="/images/landing1.jpg">
 			<img class="slides" src="/images/landing2.jpg">
 			<img class="slides" src="/images/landing3.jpg">
@@ -40,6 +44,7 @@
 			</div>
 		</div>
 
+		<!-- Scripts -->
 		<script
 			type="text/javascript"
 			src="https://code.jquery.com/jquery-3.5.1.min.js"

@@ -5,15 +5,18 @@ const express = require("express"),
 	  User = require("../models/user"),
 	  Notification = require("../models/notification");
 
+//Index Route
 router.get("/", async (req, res) => {
 	try{
+		//Pagination Variables
 		const max = 12,
 			  pageQuery = parseInt(req.query.page),
 			  pageNumber = pageQuery ? pageQuery: 1;
 		if(req.query.search && req.query.search.length > 0) {
+			//Search Logic
 			var searchRe = new RegExp(escapeRegex(req.query.search), "gi"),
-				pieces = await Piece.find({title: searchRe}).skip((max * pageNumber) - max).limit(max).exec(),
-				matches = await Piece.countDocuments({title: searchRe}).exec();
+				pieces = await Piece.find({$or: [{title: searchRe}, {tags: searchRe}]}).skip((max * pageNumber) - max).limit(max).exec(),
+				matches = await Piece.countDocuments({$or: [{title: searchRe}, {tags: searchRe}]}).exec();
 		} else {
 			var pieces = await Piece.find({}).skip((max * pageNumber) - max).limit(max).exec(),
 				matches = await Piece.countDocuments().exec();
@@ -25,17 +28,21 @@ router.get("/", async (req, res) => {
 	};
 });
 
+//New Route
 router.get("/new", middleware.LoggedIn, (req, res) => {
 	res.render("pieces/new");
 });
 router.post("/", middleware.LoggedIn, async (req, res) => {
 	try {
 		let newPiece = await Piece.create(req.body.piece);
+		//Make sure tag isn't empty
 		let tagsArray = req.body.tags.split(",").filter(tag => String(tag).trim());
+		//Edit nested properties in newPiece
 		newPiece.author.id = req.user._id;
 		newPiece.author.username = req.user.username;
 		newPiece.tags = tagsArray;
 		newPiece.save();
+		//Notification Logic
 		let newNotification = await Notification.create({
 			author: req.user.username,
 			pieceId: newPiece._id,
@@ -54,6 +61,7 @@ router.post("/", middleware.LoggedIn, async (req, res) => {
 	};
 });
 
+//Show Route
 router.get("/:id", async(req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id).populate({path: "comments", populate: {path: "author.id"}}).exec();
@@ -64,7 +72,8 @@ router.get("/:id", async(req, res) => {
 	};
 });
 
-router.get("/:id/edit", async (req, res) => {
+//Edit Routes
+router.get("/:id/edit", middleware.AuthorizedPiece, async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
 		res.render("pieces/edit", {piece: foundPiece});
@@ -73,10 +82,10 @@ router.get("/:id/edit", async (req, res) => {
 		res.redirect("back");
 	};
 });
-
 router.put("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	try {
 		let updatedPiece = await Piece.findByIdAndUpdate(req.params.id, req.body.piece);
+		//Make sure tag isn't empty & save it
 		let tagsArray = req.body.tags.split(",").filter(tag => String(tag).trim());
 		updatedPiece.tags = tagsArray;
 		updatedPiece.save();
@@ -88,6 +97,7 @@ router.put("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	};
 });
 
+//Delete Route
 router.delete("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	try {
 		await Piece.findByIdAndDelete(req.params.id);
@@ -98,16 +108,21 @@ router.delete("/:id", middleware.AuthorizedPiece, async (req, res) => {
 		res.redirect("back");
 	};
 });
+
+//Likes Route
 router.get("/:id/likes", middleware.LoggedIn, async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
+		//Check if current user liked piece already
 		let liked = foundPiece.likes.some(like => {
 			return like.equals(req.user._id);
 		});
 		if(liked) {
+			//Unlike
 			await foundPiece.likes.pull(req.user._id);
 			req.flash("error", "Unliked '" + foundPiece.title + "'");
 		} else {
+			//Like
 			await foundPiece.likes.push(req.user._id);
 			req.flash("success", "Liked '" + foundPiece.title + "'");
 		};
@@ -119,6 +134,7 @@ router.get("/:id/likes", middleware.LoggedIn, async (req, res) => {
 	};
 });
 
+//Escape Special Characters
 function escapeRegex(string) {
     return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 }

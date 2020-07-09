@@ -3,6 +3,7 @@
 <div id="mainContainer" class="ui container">
 	<form id="textForm" class="ui form" action="/pieces" method="POST">
 		<h1 class="ui center aligned header">Add a New Piece</h1>
+		<!-- Basic Text Fields -->
 		<div class="field">
 			<label for="title">Title</label>
 			<input id="title" type="text" placeholder="Title" name="piece[title]" maxlength="30" required>
@@ -15,6 +16,7 @@
 			<label for="image">Image (optional)</label>
 			<input type="text" placeholder="Image URL" name="piece[image]" id="image">
 		</div>
+		<!-- Radio Button Type Field -->
 		<div class="field">
 			<p><strong>Type</strong></p>
 			<span class="typeOption">
@@ -42,6 +44,7 @@
 				<label for="other"><strong>Other</strong></label>
 			</span>
 		</div>
+		<!-- Tag Field -->
 		<div class="field" id="tagField">
 			<label for="tags">Additional Tags</label>
 			<input id="tags" type="text" placeholder="Tags" name="piece[tags]">

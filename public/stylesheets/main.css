@@ -11,10 +11,20 @@
 	background-color: darkgray;
 }
 
+#followingBox h2,
+#tagField .tag {
+	background-color: lightgray;
+}
+
 #pagination,
 #tagField,
 #history .content {
 	display: flex;
+}
+
+#deleteForm,
+#followingBox h3 {
+	display: inline;
 }
 
 .editForm,
@@ -43,7 +53,6 @@
 	margin: 0;
 }
 
-.textBody,
 #mainContainer,
 #matchless,
 #pagination,
@@ -56,10 +65,21 @@
 	margin-top: 100px;
 }
 
+#followingBox,
+#pagination .ui.pagination.menu {
+	padding: 0;
+}
+
+#followingBox div,
+#followingBox h2 {
+	padding: 10px 0;
+}
+
 #bottomBar,
 #topBar,
 #bottomBar .fa-heart,
-#bottomBar .fa-thumbs-up {
+#bottomBar .fa-thumbs-up,
+#menu .ui.red.label {
 	position: absolute;
 }
 
@@ -70,6 +90,7 @@
 
 .ui.message,
 #authMessage,
+#followingBox,
 #matchless,
 #searchBar {
 	text-align: center;
@@ -95,6 +116,7 @@
 
 .textBody {
 	font-size: 20px;
+	padding-top: 20px;
 	white-space: pre-line;
 }
 
@@ -110,10 +132,6 @@
 	justify-content: center;
 }
 
-#pagination .ui.pagination.menu {
-	padding: 0;
-}
-
 /* Header */
 
 #menu .item {
@@ -123,12 +141,12 @@
 #menu .item .ui.red.label {
 	bottom: 10px;
 	padding: 2px 5px;
-	position: absolute;
 }
 
 /* Pieces Index */
 
 .ui.massive.message {
+	background: linear-gradient(90deg, rgba(210,214,250,0.7) 20%, rgba(212,238,252,0.7) 70%);
 	padding: 100px 20%;
 }
 
@@ -138,6 +156,7 @@
 
 #gallery .ui.card {
 	margin: 1.6%;
+	min-height: 250px;
 	padding: 14px 0;
 }
 
@@ -178,7 +197,6 @@
 }
 
 #tagField .tag {
-	background-color: lightgray;
 	margin-right: 10px;
 	padding: 5px 10px;
 }
@@ -191,10 +209,6 @@
 
 #ownerButtons {
 	text-align: right;
-}
-
-#deleteForm {
-	display: inline;
 }
 
 #commentSection {
@@ -234,21 +248,9 @@
 #followingBox {
 	background-color: whitesmoke;
 	border: 1px solid lightgray;
-	padding: 0;
-	text-align: center;
-}
-
-#followingBox h2, 
-#followingBox div {
-	padding: 10px 0;
-}
-
-#followingBox h2 {
-	background-color: lightgray;
 }
 
 #followingBox h3 {
-	display: inline;
 	font-size: 22px;
 }
 

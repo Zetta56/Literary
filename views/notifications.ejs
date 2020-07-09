@@ -2,11 +2,13 @@
 
 <div id="mainContainer" class="ui container">
 	<div class="ui grid">
+		<!-- Notifications -->
 		<div class="twelve wide column">
 			<div class="ui items" id="history">
 				<h1>Notifications:</h1>
 				<% notificationsEx.forEach(notification => { %>
 					<hr>
+					<!-- Piece Display -->
 					<% if(notification["notificationType"] === "Piece") { %>
 						<% if(!notification["pieceId"]) { %>
 							<h3><%= notification["author"] %> has made a new
@@ -33,6 +35,7 @@
 								</div>
 							</div>
 						<% } %>
+					<!-- Comment Display -->
 					<% } else { %>
 						<% if(!notification["comment"]) { %>
 							<h3><%= notification["author"] %> has made a new
@@ -50,12 +53,14 @@
 							</div>
 						<% } %>
 					<% } %>
+					<!-- Delete Button -->
 					<form action="/notifications/<%= notification["_id"] %>?_method=DELETE" method="POST">
 						<button class="ui mini red button">Remove</button>
 					</form>
 				<% }) %>
 			</div>
 		</div>
+		<!-- Following -->
 		<div class="four wide column" id="followingBox">
 			<h2>Following:</h2>
 			<% followedUsers.forEach(user => { %>

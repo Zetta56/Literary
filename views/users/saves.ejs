@@ -5,6 +5,7 @@
 		<h2>Saved Pieces:</h2>
 		<% user["saves"].forEach(save => { %>
 			<div class="item">
+				<!-- Saved Piece Image -->
 				<div class="image">
 					<% if(save["image"]) { %>
 						<img src="<%= save["image"] %>">
@@ -12,6 +13,7 @@
 						<img src="/images/defaultImage.jpg">
 					<% } %>
 				</div>
+				<!-- Saved Piece Content -->
 				<div class="content">
 					<div class="header"><a href="/pieces/<%= save["_id"] %>"><%= save["title"] %></a></div>
 					<div class="meta"><%= moment(save["created"]).fromNow() %></div>

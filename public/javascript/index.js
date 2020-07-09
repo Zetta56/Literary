@@ -5,9 +5,11 @@ $(document).ready(function() {
 });
 
 //Landing Slideshow
-var slideIndex = 0;
-var slideOff = 0
+var slideIndex = 0,
+	slideOff = 0;
+
 $(".slides:eq(" + slideIndex + ")").show();
+$(".circular:eq(" + slideIndex + ")").addClass("gray");
 
 $("#previous").on("click", function() {
 	slideIndex = (slideIndex === 0) ? 3 : slideIndex += -1;
@@ -31,7 +33,7 @@ $(".editButton").on("click", function() {
 	$(this).siblings(".editForm").slideToggle();
 });
 
-//Piece Tags
+//Creating Tags
 $("#tags").on("keypress", function(event) {
 	if(event.which === 32) {
 		let text = $(this).val().replace(/[^\w]/g, "");
@@ -42,48 +44,43 @@ $("#tags").on("keypress", function(event) {
 	};
 });
 
+//Removing Tags
 $("#tagField").on("click", ".tag", function() {
 	$(this).fadeOut(function() {
 		$(this).remove();
 	});
 });
 
+//Storing Tag Value
 $("#tagField").on("DOMNodeInserted", ".tag", function() {
 	$("#submitTags").val($("#submitTags").val() + "," + $(this).text());
 });
 
+//Deleting Tag Value
 $("#tagField").on("DOMNodeRemoved", ".tag", function() {
 	$("#submitTags").val($("#submitTags").val().replace($(this).text(), ""));
 });
 
 //Card Hover Effect
 $(".indexCard").hover(function() {
-	$(this).addClass("shaded");
-	$(this).children("#bottomBar, #topBar").fadeIn(250);
-}, function() {
-	$(this).removeClass("shaded");
-	$(this).children("#bottomBar, #topBar").fadeOut(250);
+	$(this).toggleClass("shaded");
+	$(this).children("#bottomBar, #topBar").fadeToggle(250);
 });
 
 //Icons Hover Effect
 $(".replaced").hover(function() {
-	$(this).hide();
-}, function() {
-	$(this).show();
+	$(this).toggle();
 });
 
 $(".far.fa-thumbs-up").hover(function() {
-	$(this).parents("a").siblings("a").find(".fas.fa-thumbs-up").show();
-}, function() {
-	$(this).parents("a").siblings("a").find(".fas.fa-thumbs-up").hide();
+	$(this).parents("a").siblings("a").find(".fas.fa-thumbs-up").toggle();
 });
 
 $(".far.fa-heart").hover(function() {
-	$(this).parents("a").siblings("a").find(".fas.fa-heart").show();
-}, function() {
-	$(this).parents("a").siblings("a").find(".fas.fa-heart").hide();
+	$(this).parents("a").siblings("a").find(".fas.fa-heart").toggle();
 });
 
+//Slideshow Function
 function slideTo(type) {
 	if(type === "previous") {
 		var d1 = "right",

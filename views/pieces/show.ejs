@@ -3,7 +3,7 @@
 <div id="mainContainer" class="ui container">
 	<div class="ui centered grid" id="show">
 		<div class="fourteen wide column">
-			
+			<!-- Piece Display -->
 			<h1><%= piece["title"] %></h1>
 			<div class="meta">
 				<em>
@@ -21,7 +21,7 @@
 				<img src="<%= piece["image"] %>" class="ui centered large image">
 			<% } %>
 			<p class="textBody"><%= piece["body"] %></p>
-			
+			<!-- Like & Save Buttons -->
 			<% if(currentUser && piece["likes"].some(like => {
 				return like.equals(currentUser._id);
 			})) { %>
@@ -42,6 +42,7 @@
 					<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini pink button">Save</a>
 				<% } %>
 			<% } %>
+			<!-- Piece Edit & Delete Buttons -->
 			<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
 				<div id="ownerButtons">
 					<a href="/pieces/<%= piece["_id"] %>/edit" class="ui yellow button">Edit</a>
@@ -50,7 +51,7 @@
 					</form>
 				</div>
 			<% } %>
-			
+			<!-- Add comment form & message -->
 			<div id="commentSection">
 				<h2>Comments (<%= piece["comments"].length %>)</h2>
 				<% if(currentUser) { %>
@@ -63,7 +64,7 @@
 						<a href="/login">Login</a> or <a href="/register">Sign Up</a> to Comment
 					</h2>
 				<% } %>
-				
+				<!-- Comments Display -->
 				<div class="ui items">
 					<% piece["comments"].forEach(comment => { %>
 						<div class="item">
@@ -78,6 +79,7 @@
 								<div class="description">
 									<p><%= comment["body"] %></p>
 								</div>
+								<!-- Comment Edit & Delete Buttons -->
 								<% if(currentUser && comment["author"]["id"].equals(currentUser._id)) { %>
 									<button class="ui tiny yellow button editButton">Edit</button>
 									<form action="/pieces/<%= piece["_id"] %>/comments/<%= comment["id"] %>?_method=DELETE" 

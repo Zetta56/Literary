@@ -6,20 +6,24 @@ const express = require("express"),
 	  User = require("../models/user"),
 	  Notification = require("../models/notification");
 
+//New Route
 router.post("/", middleware.LoggedIn, async (req,res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
 		let newComment = await Comment.create(req.body.comment);
+		//Edit nested properties in newComment
 		newComment.author.id = req.user._id;
 		newComment.author.username = req.user.username;
 		newComment.save();
 		foundPiece.comments.push(newComment);
 		foundPiece.save()
+		//Notification Logic
 		let newNotification = await Notification.create({
 			author: req.user.username,
 			notificationType: "Comment"
 		})
 		let author = await User.findById(req.user._id).populate("followers").exec();
+		//Edit nested properties in notification
 		newNotification.comment.id = newComment._id;
 		newNotification.comment.matchingPiece = req.params.id;
 		newNotification.save();
@@ -35,6 +39,7 @@ router.post("/", middleware.LoggedIn, async (req,res) => {
 	};
 });
 
+//Edit Route
 router.put("/:comment_id", middleware.AuthorizedComment, async (req, res) => {
 	try {
 		await Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment);
@@ -46,6 +51,7 @@ router.put("/:comment_id", middleware.AuthorizedComment, async (req, res) => {
 	};
 })
 
+//Delete Route
 router.delete("/:comment_id", middleware.AuthorizedComment, async (req, res) => {
 	try {
 		await Comment.findByIdAndDelete(req.params.comment_id);

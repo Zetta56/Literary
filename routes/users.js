@@ -4,8 +4,10 @@ const express = require("express"),
 	  Piece = require("../models/piece"),
 	  User = require("../models/user");
 
+//Show Route
 router.get("/", async (req, res) => {
 	try {
+		//Pagination Variables
 		const max = 10,
 			  pageQuery = parseInt(req.query.page),
 			  pageNumber = pageQuery ? pageQuery : 1;
@@ -19,6 +21,7 @@ router.get("/", async (req, res) => {
 	};
 });
 
+//Edit Routes
 router.get("/edit", middleware.AuthorizedUser, async (req, res) => {
 	try {
 		let foundUser = await User.findById(req.params.user_id);
@@ -30,6 +33,7 @@ router.get("/edit", middleware.AuthorizedUser, async (req, res) => {
 })
 router.put("/",  middleware.AuthorizedUser, async (req, res) => {
 	try {
+		//Edit entire user
 		await User.findByIdAndUpdate(req.params.user_id, req.body.user);
 		req.flash("success", "Profile successfully updated.");
 		res.redirect("/users/" + req.params.user_id);
@@ -38,10 +42,10 @@ router.put("/",  middleware.AuthorizedUser, async (req, res) => {
 		res.redirect("back");
 	}
 })
-
 router.put("/avatar", middleware.AuthorizedUser, async (req, res) => {
 	try {
 		let foundUser = await User.findById(req.params.user_id);
+		//Edit user's avatar
 		foundUser.avatar = req.body.avatar;
 		foundUser.save();
 		req.flash("success", "Avatar successfully updated.");
@@ -52,6 +56,7 @@ router.put("/avatar", middleware.AuthorizedUser, async (req, res) => {
 	}
 });
 
+//Saves Routes
 router.get("/saves", async (req, res) => {
 	try {
 		let foundUser = await User.findById(req.params.user_id).populate("saves").exec();
@@ -65,13 +70,16 @@ router.get("/saves/:id", async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
 		let foundUser = await User.findById(req.params.user_id);
+		//Check if current user saved piece already
 		let saved = foundUser.saves.some(save => {
 			return save.equals(foundPiece._id);
 		});
 		if(saved) {
+			//Unsave
 			await foundUser.saves.pull(foundPiece._id);
 			req.flash("error", "Unsaved '" + foundPiece.title + "'");
 		} else {
+			//Save
 			await foundUser.saves.push(foundPiece._id);
 			req.flash("success", "Saved '" + foundPiece.title + "'");
 		};
@@ -83,16 +91,20 @@ router.get("/saves/:id", async (req, res) => {
 	};
 });
 
+//Follow Route
 router.post("/follow", async (req, res) => {
 	try {
 		let foundUser = await User.findById(req.params.user_id);
+		//Check if current user followed foundUser already
 		let followed = foundUser.followers.some(follower => {
 			return follower.equals(req.user._id);
 		});
 		if(followed) {
+			//Unfollow
 			await foundUser.followers.pull(req.user._id);
 			req.flash("error", "Unfollowed '" + foundUser.username + "'");
 		} else {
+			//Follow
 			await foundUser.followers.push(req.user._id);
 			req.flash("success", "Followed '" + foundUser.username + "'");
 		};

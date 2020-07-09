@@ -68,7 +68,7 @@ app.use("/", indexRoutes);
 //SeedDB
 // seedDB();
 
-//Server
+//Start Server
 app.listen(process.env.PORT || 3000, () => {
 	console.log("Server Started!");
 });
