@@ -60,11 +60,10 @@
 								<a href="/notifications" class="item">View All Notifications</a>
 								<% notifications.forEach(notification => { %>
 									<a href="/notifications/<%= notification["_id"] %>" class="item">
-										<%= notification["author"] %> has created a new
 										<% if(notification["notificationType"] === "Piece") { %>
-											piece %>
+											<%= notification["author"] %> has created a new piece %>
 										<% } else { %>
-											comment %>
+											<%= notification["author"] %> has created a new comment %>
 										<% } %>
 									</a>
 								<% }) %>

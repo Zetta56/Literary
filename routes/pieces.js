@@ -3,6 +3,7 @@ const express = require("express"),
 	  middleware = require("../middleware/index"),
 	  Piece = require("../models/piece"),
 	  User = require("../models/user"),
+	  Comment = require("../models/comment"),
 	  Notification = require("../models/notification");
 
 //Index Route
@@ -100,7 +101,9 @@ router.put("/:id", middleware.AuthorizedPiece, async (req, res) => {
 //Delete Route
 router.delete("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	try {
-		await Piece.findByIdAndDelete(req.params.id);
+		let foundPiece = await Piece.findById(req.params.id);
+		await Comment.deleteMany({_id: {$in: foundPiece.comments}});
+		await Piece.deleteOne(foundPiece);
 		req.flash("success", "Piece successfully removed.");
 		res.redirect("/pieces");
 	} catch(err) {

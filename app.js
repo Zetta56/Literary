@@ -27,7 +27,7 @@ const piecesRoutes = require("./routes/pieces"),
 
 //App Config
 require("dotenv").config();
-mongoose.connect(process.env.DatabaseURL || "mongodb://localhost/literary", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.DatabaseUrl || "mongodb://localhost/literary", {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set("useFindAndModify", false);
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
