@@ -1,3 +1,9 @@
+//Not create notification if followers === 0
+//Make sure email is correctly formatted
+//Password upgrade
+//capitalize profile info
+//make sure you can't follow yourself
+
 //Packages
 const express = require("express"),
 	  app = express(),

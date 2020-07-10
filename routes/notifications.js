@@ -16,6 +16,9 @@ router.get("/", middleware.LoggedIn, async (req, res) => {
 		let notificationsExtras = foundUser.notifications.reverse();
 		//Find followed users
 		let followedUsers = await User.find({followers: {$in: [req.user._id]}});
+		notificationsExtras.forEach(notification => {
+			console.log(notification.comment)
+		})
 		res.render("notifications", {notificationsEx: notificationsExtras, followedUsers});
 	} catch(err) {
 		req.flash("error", err.message);

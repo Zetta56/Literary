@@ -57,7 +57,7 @@ router.put("/avatar", middleware.AuthorizedUser, async (req, res) => {
 });
 
 //Saves Routes
-router.get("/saves", async (req, res) => {
+router.get("/saves", middleware.LoggedIn, async (req, res) => {
 	try {
 		let foundUser = await User.findById(req.params.user_id).populate("saves").exec();
 		res.render("users/saves", {user: foundUser});
@@ -66,7 +66,7 @@ router.get("/saves", async (req, res) => {
 		res.redirect("back");
 	};
 });
-router.get("/saves/:id", async (req, res) => {
+router.get("/saves/:id", middleware.LoggedIn, async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
 		let foundUser = await User.findById(req.params.user_id);
@@ -92,9 +92,14 @@ router.get("/saves/:id", async (req, res) => {
 });
 
 //Follow Route
-router.post("/follow", async (req, res) => {
+router.post("/follow", middleware.LoggedIn, async (req, res) => {
 	try {
 		let foundUser = await User.findById(req.params.user_id);
+		//Check if current user is foundUser
+		if(foundUser._id.equals(req.user._id)) {
+			req.flash("error", "You can't follow yourself.");
+			return res.redirect("/users/" + req.params.user_id)
+		}
 		//Check if current user followed foundUser already
 		let followed = foundUser.followers.some(follower => {
 			return follower.equals(req.user._id);

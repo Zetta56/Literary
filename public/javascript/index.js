@@ -72,7 +72,7 @@ $(".indexCard").hover(function() {
 	$(this).children("#bottomBar, #topBar").fadeToggle(250);
 });
 
-//Icons Hover Effect
+//LoggedIn Icons Hover Effect
 $(".replaced").hover(function() {
 	$(this).toggle();
 });
@@ -83,6 +83,11 @@ $(".far.fa-thumbs-up").hover(function() {
 
 $(".far.fa-heart").hover(function() {
 	$(this).parents("a").siblings("a").find(".fas.fa-heart").toggle();
+});
+
+//LoggedOut Icons Hover Effect
+$(".outIcon").hover(function() {
+	$(this).parents("a").siblings(".outMessage").fadeToggle();
 });
 
 //Slideshow Function

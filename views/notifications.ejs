@@ -6,6 +6,9 @@
 		<div class="twelve wide column">
 			<div class="ui items" id="history">
 				<h1>Notifications:</h1>
+				<% if(notificationsEx.length === 0) { %>
+					<h2>You have no notifications.</h2>
+				<% } %>
 				<% notificationsEx.forEach(notification => { %>
 					<hr>
 					<!-- Piece Display -->
@@ -47,7 +50,7 @@
 							</h3>
 							<div class="item">
 								<div class="content">
-									<div class="description"><%= notification["comment"]["id"]["body"] %></div>
+									<div class="description"><%= notification.comment.id.body %></div>
 									<div class="meta"><em><%= moment(notification.comment.id.created).fromNow() %></em></div>
 								</div>
 							</div>
@@ -61,15 +64,17 @@
 			</div>
 		</div>
 		<!-- Following -->
-		<div class="four wide column" id="followingBox">
-			<h2>Following:</h2>
-			<% followedUsers.forEach(user => { %>
-				<div>
-					<img class="ui avatar image" src="<%= user["avatar"] %>">
-					<h3><a href="users/<%= user["_id"] %>"><%= user["username"] %></a></h3>
-				</div>
-			<% }) %>
-		</div>
+		<% if(followedUsers.length > 0) { %>
+			<div class="four wide column" id="followingBox">
+				<h2>Following:</h2>
+				<% followedUsers.forEach(user => { %>
+					<div>
+						<img class="ui avatar image" src="<%= user["avatar"] %>">
+						<h3><a href="users/<%= user["_id"] %>"><%= user["username"] %></a></h3>
+					</div>
+				<% }) %>
+			</div>
+		<% } %>
 	</div>
 </div>
 

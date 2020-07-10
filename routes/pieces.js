@@ -44,16 +44,18 @@ router.post("/", middleware.LoggedIn, async (req, res) => {
 		newPiece.tags = tagsArray;
 		newPiece.save();
 		//Notification Logic
-		let newNotification = await Notification.create({
-			author: req.user.username,
-			pieceId: newPiece._id,
-			notificationType: "Piece"
-		})
 		let author = await User.findById(req.user._id).populate("followers").exec();
-		author.followers.forEach(follower => {
-			follower.notifications.push(newNotification);
-			follower.save();
-		});
+		if(author.followers.length > 0) {
+			let newNotification = await Notification.create({
+				author: req.user.username,
+				pieceId: newPiece._id,
+				notificationType: "Piece"
+			});
+			author.followers.forEach(follower => {
+				follower.notifications.push(newNotification);
+				follower.save();
+			});
+		};
 		req.flash("success", "Piece successfully uploaded!");
 		res.redirect("/pieces");
 	} catch(err) {
@@ -65,18 +67,27 @@ router.post("/", middleware.LoggedIn, async (req, res) => {
 //Show Route
 router.get("/:id", async(req, res) => {
 	try {
-		let foundPiece = await Piece.findById(req.params.id).populate({path: "comments", populate: {path: "author.id"}}).exec();
+		var foundPiece = await Piece.findById(req.params.id).populate({path: "comments", populate: {path: "author.id"}}).exec();
 		res.render("pieces/show", {piece: foundPiece});
 	} catch(err) {
-		req.flash("error", err.message);
-		res.redirect("back");
+		if(!foundPiece) {
+			req.flash("error", "Piece could not be found.");
+			res.redirect("/pieces")
+		} else {
+			req.flash("error", err.message);
+			res.redirect("back");
+		}
 	};
 });
 
 //Edit Routes
 router.get("/:id/edit", middleware.AuthorizedPiece, async (req, res) => {
 	try {
-		let foundPiece = await Piece.findById(req.params.id);
+		var foundPiece = await Piece.findById(req.params.id);
+		if(!foundPiece) {
+			req.flash("error", "Piece could not be found.");
+			res.redirect("/pieces")
+		}
 		res.render("pieces/edit", {piece: foundPiece});
 	} catch(err) {
 		req.flash("error", err.message);
@@ -102,6 +113,10 @@ router.put("/:id", middleware.AuthorizedPiece, async (req, res) => {
 router.delete("/:id", middleware.AuthorizedPiece, async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
+		let foundNotifications = await Notification.find({"comment.id": {$in: foundPiece.comments}});
+		if(foundNotifications.length > 0) {
+			await Notification.deleteMany({"comment.id": {$in: foundPiece.comments}});
+		};
 		await Comment.deleteMany({_id: {$in: foundPiece.comments}});
 		await Piece.deleteOne(foundPiece);
 		req.flash("success", "Piece successfully removed.");

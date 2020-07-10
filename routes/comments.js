@@ -18,19 +18,21 @@ router.post("/", middleware.LoggedIn, async (req,res) => {
 		foundPiece.comments.push(newComment);
 		foundPiece.save()
 		//Notification Logic
-		let newNotification = await Notification.create({
-			author: req.user.username,
-			notificationType: "Comment"
-		})
 		let author = await User.findById(req.user._id).populate("followers").exec();
-		//Edit nested properties in notification
-		newNotification.comment.id = newComment._id;
-		newNotification.comment.matchingPiece = req.params.id;
-		newNotification.save();
-		author.followers.forEach(follower => {
-			follower.notifications.push(newNotification);
-			follower.save();
-		});
+		if(author.followers.length > 0) {
+			let newNotification = await Notification.create({
+				author: req.user.username,
+				notificationType: "Comment"
+			})
+			//Edit nested properties in notification
+			newNotification.comment.id = newComment._id;
+			newNotification.comment.matchingPiece = req.params.id;
+			newNotification.save();
+			author.followers.forEach(follower => {
+				follower.notifications.push(newNotification);
+				follower.save();
+			});
+		}
 		req.flash("success", "Comment successfully added.");
 		res.redirect("/pieces/" + req.params.id);
 	} catch(err) {
@@ -54,6 +56,7 @@ router.put("/:comment_id", middleware.AuthorizedComment, async (req, res) => {
 //Delete Route
 router.delete("/:comment_id", middleware.AuthorizedComment, async (req, res) => {
 	try {
+		await Notification.deleteOne({"comment.id": {$in: req.params.comment_id}});
 		await Comment.findByIdAndDelete(req.params.comment_id);
 		req.flash("success", "Comment successfully removed.");
 		res.redirect("/pieces/" + req.params.id);

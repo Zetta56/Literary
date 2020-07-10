@@ -41,25 +41,25 @@
 										<span class="ui label" >#<%= tag %></span>
 									<% } %>
 								<% }) %>
-								<p class="textBody"><%= piece["body"].slice(0, 400) %>...</p>
+								<p class="textBody"><%= piece["body"].slice(0, 400) %><% if(piece.body.length > 400) { %>...<% } %></p>
 							</div>
 							<div id="bottomBar">
-								<!-- Like Icon -->
-								<% if(currentUser && piece["likes"].some(like => {
-									return like.equals(currentUser._id);
-								})) { %>
-									<a href="/pieces/<%= piece["_id"] %>/likes"><i class="fas fa-thumbs-up liked"></i></a>
-								<% } else { %>
-									<a href="/pieces/<%= piece["_id"] %>/likes"><i class="far fa-thumbs-up replaced"></i></a>
-									<a href="/pieces/<%= piece["_id"] %>/likes"><i class="fas fa-thumbs-up"></i></a>
-								<% } %>
-								<!-- Save Icon -->
+								<!-- Logged Out Version -->
 								<% if(!currentUser) { %>
-									<% let currentUser = "placeholder" %>
-									<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>"><i class="far fa-heart replaced"></i></a>
-									<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>"><i class="fas fa-heart"></i></a>
-								<% } %>
-								<% if(currentUser) { %>
+									<span class="ui label outMessage">Sign in to like and save</span>
+									<a><i class="far fa-heart outIcon"></i></a>
+									<a><i class="far fa-thumbs-up outIcon"></i></a>
+								<% } else { %>
+									<!-- Like Icon -->
+									<% if(piece["likes"].some(like => {
+										return like.equals(currentUser._id);
+									})) { %>
+										<a href="/pieces/<%= piece["_id"] %>/likes"><i class="fas fa-thumbs-up liked"></i></a>
+									<% } else { %>
+										<a href="/pieces/<%= piece["_id"] %>/likes"><i class="far fa-thumbs-up replaced"></i></a>
+										<a href="/pieces/<%= piece["_id"] %>/likes"><i class="fas fa-thumbs-up"></i></a>
+									<% } %>
+									<!-- Save Icon -->
 									<% if(currentUser.saves.some(save => {
 										return save.equals(piece._id);
 									})) { %>

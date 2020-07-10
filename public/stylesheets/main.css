@@ -37,13 +37,19 @@
 #bottomBar,
 #submenu,
 #topBar,
-#bottomBar .fas {
+#bottomBar .fas,
+#bottomBar .ui.label {
 	display: none;
 }
 
 #topBar .ui.label,
 #tagField .tag {
 	font-size: 14px;
+}
+
+#commentSection,
+#bottomBar .ui.label {
+	font-size: 18px;
 }
 
 #tagField,
@@ -86,7 +92,8 @@
 #topBar,
 #bottomBar .fa-heart,
 #bottomBar .fa-thumbs-up,
-#menu .ui.red.label {
+#menu .ui.red.label,
+#bottomBar .ui.label {
 	position: absolute;
 }
 
@@ -94,12 +101,12 @@
 #authMessage,
 #followingBox,
 #matchless,
-#searchBar {
+#searchBar,
+#bottomBar .ui.label {
 	text-align: center;
 }
 
 #userForm,
-#searchBar .icon.input,
 #tagField #tags {
 	width: 35%;
 }
@@ -142,6 +149,10 @@
 	font-size: 1.25rem;
 }
 
+#menu .fa.fa-book {
+	padding-right: 10px;
+}
+
 #menu .item .ui.red.label {
 	bottom: 10px;
 	padding: 2px 5px;
@@ -158,12 +169,15 @@
 	padding: 100px 20%;
 }
 
+#searchBar .icon.input {
+	width: 400px;
+}
+
 #gallery {
 	margin-top: 20px;
 }
 
 #gallery .ui.card {
-	margin: 1.6%;
 	min-height: 250px;
 	padding: 14px 0;
 }
@@ -177,6 +191,13 @@
 	font-size: 30px;
 	height: 40px;
 	bottom: 0px;
+}
+
+#bottomBar .ui.label {
+	background-color: peachpuff;
+	top: -50px;
+	width: 70%;
+	margin: 0 15%;
 }
 
 #bottomBar .fa-thumbs-up {
@@ -217,10 +238,6 @@
 
 #ownerButtons {
 	text-align: right;
-}
-
-#commentSection {
-	font-size: 18px;
 }
 
 #commentSection .ui.avatar.image {
