@@ -2,7 +2,7 @@
 A website that allows users to create and share pieces of literature with others.
 
 ## Motivation
-This is my first personal project that helped me practice concepts and technologies such as RESTful routing, the MEN stack, and basic authentication. I believed that making a site where users can share content was a simple way to gain experience creating a decent final product.
+This is my first personal project that includes concepts and technologies such as RESTful routing, the MEN stack, and basic authentication.
 
 ## Requirements
 This site relies on the following:
