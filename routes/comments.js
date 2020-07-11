@@ -32,7 +32,7 @@ router.post("/", middleware.LoggedIn, async (req,res) => {
 				follower.notifications.push(newNotification);
 				follower.save();
 			});
-		}
+		};
 		req.flash("success", "Comment successfully added.");
 		res.redirect("/pieces/" + req.params.id);
 	} catch(err) {

@@ -1,5 +1,6 @@
 const express = require("express"),
 	  router = express.Router(),
+	  mongoose = require("mongoose"),
 	  middleware = require("../middleware/index"),
 	  Piece = require("../models/piece"),
 	  User = require("../models/user"),
@@ -67,27 +68,26 @@ router.post("/", middleware.LoggedIn, async (req, res) => {
 //Show Route
 router.get("/:id", async(req, res) => {
 	try {
-		var foundPiece = await Piece.findById(req.params.id).populate({path: "comments", populate: {path: "author.id"}}).exec();
-		res.render("pieces/show", {piece: foundPiece});
-	} catch(err) {
+		if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+			req.flash("error", "Piece could not be found.");
+			return res.redirect("/pieces");
+		};
+		let foundPiece = await Piece.findById(req.params.id).populate({path: "comments", populate: {path: "author.id"}}).exec();
 		if(!foundPiece) {
 			req.flash("error", "Piece could not be found.");
-			res.redirect("/pieces")
-		} else {
-			req.flash("error", err.message);
-			res.redirect("back");
-		}
+			return res.redirect("/pieces");
+		};
+		res.render("pieces/show", {piece: foundPiece});
+	} catch(err) {
+		req.flash("error", err.message);
+		res.redirect("back");
 	};
 });
 
 //Edit Routes
 router.get("/:id/edit", middleware.AuthorizedPiece, async (req, res) => {
 	try {
-		var foundPiece = await Piece.findById(req.params.id);
-		if(!foundPiece) {
-			req.flash("error", "Piece could not be found.");
-			res.redirect("/pieces")
-		}
+		let foundPiece = await Piece.findById(req.params.id);
 		res.render("pieces/edit", {piece: foundPiece});
 	} catch(err) {
 		req.flash("error", err.message);

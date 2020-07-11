@@ -1,5 +1,6 @@
 const express = require("express"),
 	  router = express.Router({mergeParams: true}),
+	  mongoose = require("mongoose"),
 	  middleware = require("../middleware/index"),
 	  Piece = require("../models/piece"),
 	  User = require("../models/user");
@@ -7,6 +8,10 @@ const express = require("express"),
 //Show Route
 router.get("/", async (req, res) => {
 	try {
+		if(!mongoose.Types.ObjectId.isValid(req.params.user_id)) {
+			req.flash("error", "User could not be found.");
+			return res.redirect("/pieces");
+		};
 		//Pagination Variables
 		const max = 10,
 			  pageQuery = parseInt(req.query.page),
@@ -14,6 +19,10 @@ router.get("/", async (req, res) => {
 		let foundPieces = await Piece.find({"author.id": {$in: [req.params.user_id]}}).skip((max * pageNumber) - max).limit(max).exec();
 		let matches = await Piece.countDocuments({"author.id": {$in: [req.params.user_id]}}).exec();
 		let foundUser = await User.findById(req.params.user_id);
+		if(!foundUser) {
+			req.flash("error", "User could not be found.");
+			return res.redirect("/pieces");
+		};
 		res.render("users/show", {user: foundUser, pieces: foundPieces, current: pageNumber, pages: Math.ceil((matches / max))});
 	} catch(err) {
 		req.flash("error", err.message);
@@ -33,6 +42,11 @@ router.get("/edit", middleware.AuthorizedUser, async (req, res) => {
 })
 router.put("/",  middleware.AuthorizedUser, async (req, res) => {
 	try {
+		//Email Validation
+		if(!/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(req.body.user.email)) {
+			req.flash("error", "Email is not valid.");
+			return res.redirect("back");
+		};
 		//Edit entire user
 		await User.findByIdAndUpdate(req.params.user_id, req.body.user);
 		req.flash("success", "Profile successfully updated.");

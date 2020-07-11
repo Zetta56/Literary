@@ -30,14 +30,20 @@
 		<div id="userInfo" class="ten wide column">
 			<div class="ui two column grid">
 				<div class="column">
-					<span><strong>First Name:</strong><%= user["firstName"] %></span>
+					<span>
+						<strong>First Name: </strong>
+						<%= user["firstName"].replace(user["firstName"].charAt(0), user["firstName"].charAt(0).toUpperCase()) %>
+					</span>
 				</div>
 				<div class="column">
-					<span class="ui right floated"><strong>Last Name:</strong><%= user["lastName"] %></span>
+					<span class="ui right floated">
+						<strong>Last Name: </strong>
+						<%= user["lastName"].replace(user["lastName"].charAt(0), user["lastName"].charAt(0).toUpperCase()) %>
+					</span>
 				</div>
 			</div>
 			<br>
-			<p><strong>Email:</strong><%= user["email"] %></p>
+			<p><strong>Email: </strong><%= user["email"] %></p>
 			<!-- User Edit Form -->
 			<% if(currentUser && user["_id"].equals(currentUser._id)) { %>
 				<a href="/users/<%= user["_id"] %>/edit" class="ui right floated yellow button">Edit</a>
