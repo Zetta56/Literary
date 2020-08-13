@@ -2,25 +2,29 @@
 
 <div id="mainContainer" class="ui container">
 	<div class="ui items" id="history">
-		<h2>Saved Pieces:</h2>
-		<% user["saves"].forEach(save => { %>
-			<div class="item">
-				<!-- Saved Piece Image -->
-				<div class="image">
-					<% if(save["image"]) { %>
-						<img src="<%= save["image"] %>">
-					<% } else { %>
-						<img src="/images/defaultImage.jpg">
-					<% } %>
+		<% if(user["saves"].length !== 0) { %>
+			<h2>Saved Pieces:</h2>
+			<% user["saves"].forEach(save => { %>
+				<div class="item">
+					<!-- Saved Piece Image -->
+					<div class="image">
+						<% if(save["image"]) { %>
+							<img src="<%= save["image"] %>">
+						<% } else { %>
+							<img src="/images/defaultImage.jpg">
+						<% } %>
+					</div>
+					<!-- Saved Piece Content -->
+					<div class="content">
+						<div class="header"><a href="/pieces/<%= save["_id"] %>"><%= save["title"] %></a></div>
+						<div class="meta"><%= moment(save["created"]).fromNow() %></div>
+						<div class="description"><%= save["body"].slice(0, 400) %>...</div>
+					</div>
 				</div>
-				<!-- Saved Piece Content -->
-				<div class="content">
-					<div class="header"><a href="/pieces/<%= save["_id"] %>"><%= save["title"] %></a></div>
-					<div class="meta"><%= moment(save["created"]).fromNow() %></div>
-					<div class="description"><%= save["body"].slice(0, 400) %>...</div>
-				</div>
-			</div>
-		<% }) %>
+			<% }) %>
+		<% } else { %>
+			<h2>You have no saved pieces</h2>
+		<% } %>
 	</div>
 </div>
 
