@@ -1,9 +1,3 @@
-//Landing Load Animation
-$(document).ready(function() {
-	$("#left").show("slide", {direction: "up"}, 1000);
-	$("#right").show("slide", {direction: "down"}, 1000);
-});
-
 //Landing Slideshow
 var slideIndex = 0,
 	slideOff = 0;
