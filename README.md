@@ -1,5 +1,5 @@
 # Literary
-A website that allows users to create and share pieces of literature with others.
+A web app that allows users to create and share pieces of literature with others.
 
 ## Motivation
 This is my first personal project that includes concepts and technologies such as RESTful routing, the MEN stack, and basic authentication.
