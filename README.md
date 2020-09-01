@@ -17,8 +17,8 @@ Other important techonologies include:
 3. Passport
 
 ## Usage
-Create a `.env` file and set `process.env.DatabaseUrl` to your database. If you want to set up a local database, you can follow [these instructions](https://docs.mongodb.com/manual/administration/install-community/) to install **mongoDB**. Then, you can run `npm install` to install all necessary dependencies.
+1. Create a `.env` file and set `process.env.DatabaseUrl` to your database. If you want to set up a local database, you can follow [these instructions](https://docs.mongodb.com/manual/administration/install-community/) to install **mongoDB**.
 
-To manually run the site, you can type:
+2. Install all necessary dependencies using `npm install`.
 
-	node app.js
+3. To manually run the site, run `node app.js`.
