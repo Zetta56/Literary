@@ -11,7 +11,7 @@ This app relies on the following:
 2. npm
 
 ## Usage
-1. Create a `.env` file and set `process.env.DatabaseUrl` to your database. If you want to set up a local database, you can follow [these instructions](https://docs.mongodb.com/manual/administration/install-community/) to install **mongoDB**.
+1. Create a `.env` file and set `DatabaseUrl` to your database. If you want to set up a local database, you can follow [these instructions](https://docs.mongodb.com/manual/administration/install-community/) to install **mongoDB**.
 
 2. Install all necessary dependencies using:
 
