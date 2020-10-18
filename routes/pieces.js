@@ -17,10 +17,10 @@ router.get("/", async (req, res) => {
 		if(req.query.search && req.query.search.length > 0) {
 			//Search Logic
 			var searchRe = new RegExp(escapeRegex(req.query.search), "gi"),
-				pieces = await Piece.find({$or: [{title: searchRe}, {tags: searchRe}]}).skip((max * pageNumber) - max).limit(max).exec(),
+				pieces = await Piece.find({$or: [{title: searchRe}, {tags: searchRe}]}).sort({likes: "desc"}).skip((max * pageNumber) - max).limit(max).exec(),
 				matches = await Piece.countDocuments({$or: [{title: searchRe}, {tags: searchRe}]}).exec();
 		} else {
-			var pieces = await Piece.find({}).skip((max * pageNumber) - max).limit(max).exec(),
+			var pieces = await Piece.find({}).sort({likes: "desc"}).skip((max * pageNumber) - max).limit(max).exec(),
 				matches = await Piece.countDocuments().exec();
 		};
 		res.render("pieces/index", {pieces: pieces, current: pageNumber, pages: Math.ceil(matches / max), search: req.query.search});

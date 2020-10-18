@@ -4,53 +4,55 @@
 	<div class="ui centered grid" id="show">
 		<div class="fourteen wide column">
 			<!-- Piece Display -->
-			<h1><%= piece["title"] %></h1>
-			<div class="meta">
-				<em>
-					Submitted By <a href="/users/<%= piece["author"]["id"] %>"><%= piece["author"]["username"] %></a>,
-					<%= moment(piece["created"]).fromNow() %>
-				</em>
-			</div>
-			<span class="ui teal label">#<%= piece["type"] %></span>
-			<% piece["tags"].forEach(tag => { %>
-				<% if(tag.length > 0) { %>
-					<span class="ui label">#<%= tag %></span>
+			<div id="pieceInfo">
+				<h1><%= piece["title"] %></h1>
+				<div class="meta">
+					<em>
+						Submitted By <a href="/users/<%= piece["author"]["id"] %>"><%= piece["author"]["username"] %></a>,
+						<%= moment(piece["created"]).fromNow() %>
+					</em>
+				</div>
+				<span class="ui teal label">#<%= piece["type"] %></span>
+				<% piece["tags"].forEach(tag => { %>
+					<% if(tag.length > 0) { %>
+						<span class="ui label">#<%= tag %></span>
+					<% } %>
+				<% }) %>
+				<% if(piece.image) { %>
+					<img src="<%= piece["image"] %>" class="ui centered large image">
 				<% } %>
-			<% }) %>
-			<% if(piece.image) { %>
-				<img src="<%= piece["image"] %>" class="ui centered large image">
-			<% } %>
-			<p class="textBody"><%= piece["body"] %></p>
-			<!-- Like & Save Buttons -->
-			<% if(currentUser && piece["likes"].some(like => {
-				return like.equals(currentUser._id);
-			})) { %>
-				<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini green button">Liked!</a>
-			<% } else { %>
-				<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini blue button">Like</a>
-			<% } %>
-			<% if(!currentUser) { %>
-				<% let currentUser = "placeholder" %>
-				<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini pink button">Save</a>
-			<% } %>
-			<% if(currentUser) { %>
-				<% if(currentUser.saves.some(save => {
-					return save.equals(piece._id);
+				<p class="textBody"><%= piece["body"] %></p>
+				<!-- Like & Save Buttons -->
+				<% if(currentUser && piece["likes"].some(like => {
+					return like.equals(currentUser._id);
 				})) { %>
-					<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini red button">Saved!</a>
+					<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini green button">Liked!</a>
 				<% } else { %>
+					<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini blue button">Like</a>
+				<% } %>
+				<% if(!currentUser) { %>
+					<% let currentUser = "placeholder" %>
 					<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini pink button">Save</a>
 				<% } %>
-			<% } %>
-			<!-- Piece Edit & Delete Buttons -->
-			<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
-				<div id="ownerButtons">
-					<a href="/pieces/<%= piece["_id"] %>/edit" class="ui yellow button">Edit</a>
-					<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST" id="deleteForm">
-						<button class="ui red button">Delete</button>
-					</form>
-				</div>
-			<% } %>
+				<% if(currentUser) { %>
+					<% if(currentUser.saves.some(save => {
+						return save.equals(piece._id);
+					})) { %>
+						<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini red button">Saved!</a>
+					<% } else { %>
+						<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini pink button">Save</a>
+					<% } %>
+				<% } %>
+				<!-- Piece Edit & Delete Buttons -->
+				<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
+					<div id="ownerButtons">
+						<a href="/pieces/<%= piece["_id"] %>/edit" class="ui yellow button">Edit</a>
+						<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST" id="deleteForm">
+							<button class="ui red button">Delete</button>
+						</form>
+					</div>
+				<% } %>
+			</div>
 			<!-- Add comment form & message -->
 			<div id="commentSection">
 				<h2>Comments (<%= piece["comments"].length %>)</h2>

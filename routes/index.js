@@ -18,7 +18,7 @@ router.get("/register", middleware.NotLoggedIn, (req, res) => {
 router.post("/register", middleware.NotLoggedIn, async (req, res) => {
 	try {
 		//Email Validation
-		if(!/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(req.body.email)) {
+		if(!/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(req.body.email)) {
 			req.flash("error", "Email is not valid.");
 			return res.redirect("back");
 		};

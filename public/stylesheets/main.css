@@ -16,6 +16,14 @@
 	background-color: lightgray;
 }
 
+#textForm,
+#userForm,
+#show #pieceInfo,
+#show #commentSection {
+	background-color: whitesmoke;
+	padding: 30px 40px;
+}
+
 #bottomBar .fa-thumbs-up,
 #bottomBar .fa-heart {
 	bottom: 5px;
@@ -75,7 +83,7 @@
 
 #commentSection,
 #history {
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 #followingBox,
@@ -106,13 +114,9 @@
 	text-align: center;
 }
 
-#userForm,
-#tagField #tags {
-	width: 35%;
-}
-
 .meta,
 #avatarButton,
+#userForm .ui.button,
 #menu,
 #submenu,
 #topBar,
@@ -214,6 +218,7 @@
 
 #userForm {
 	margin: 120px auto;
+	width: 55%;
 }
 
 #textForm {
@@ -223,6 +228,10 @@
 
 #textForm .typeOption {
 	margin-right: 30px;
+}
+
+#tagField #tags {
+	width: 35%;
 }
 
 #tagField .tag {
