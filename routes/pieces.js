@@ -136,13 +136,9 @@ router.get("/:id/likes", middleware.LoggedIn, async (req, res) => {
 			return like.equals(req.user._id);
 		});
 		if(liked) {
-			//Unlike
-			await foundPiece.likes.pull(req.user._id);
-			req.flash("error", "Unliked '" + foundPiece.title + "'");
+			foundPiece.likes.pull(req.user._id);
 		} else {
-			//Like
-			await foundPiece.likes.push(req.user._id);
-			req.flash("success", "Liked '" + foundPiece.title + "'");
+			foundPiece.likes.push(req.user._id);
 		};
 		foundPiece.save();
 		res.redirect("back");

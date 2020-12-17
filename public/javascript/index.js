@@ -29,10 +29,10 @@ $("#avatarButton").on("click", function() {
 
 //Toggle Edit Comment Form
 $(".editButton").on("click", function() {
-	$(this).siblings(".editForm").slideToggle();
+	$(this).parents(".content").find(".editForm").slideToggle();
 });
 
-//Creating Tags
+//Creating & Removing Tags
 $("#tags").on("keypress", function(event) {
 	if(event.which === 32) {
 		let text = $(this).val().replace(/[^\w]/g, "");
@@ -43,19 +43,18 @@ $("#tags").on("keypress", function(event) {
 	};
 });
 
-//Removing Tags
 $("#tagField").on("click", ".tag", function() {
 	$(this).fadeOut(function() {
 		$(this).remove();
 	});
 });
 
-//Storing Tag Value
+//Storing & Deleting Tag Value
 $("#tagField").on("DOMNodeInserted", ".tag", function() {
 	$("#submitTags").val($("#submitTags").val() + "," + $(this).text());
 });
 
-//Deleting Tag Value
+
 $("#tagField").on("DOMNodeRemoved", ".tag", function() {
 	$("#submitTags").val($("#submitTags").val().replace($(this).text(), ""));
 });
@@ -66,22 +65,14 @@ $(".indexCard").hover(function() {
 	$(this).children("#bottomBar, #topBar").fadeToggle(250);
 });
 
-//LoggedIn Icons Hover Effect
-$(".replaced").hover(function() {
-	$(this).toggle();
-});
-
-$(".far.fa-thumbs-up").hover(function() {
-	$(this).parents("a").siblings("a").find(".fas.fa-thumbs-up").toggle();
-});
-
-$(".far.fa-heart").hover(function() {
-	$(this).parents("a").siblings("a").find(".fas.fa-heart").toggle();
-});
-
-//LoggedOut Icons Hover Effect
+//Login Message Hover Effect
 $(".outIcon").hover(function() {
 	$(this).parents("a").siblings(".outMessage").fadeToggle();
+});
+
+//Showing & Hiding Kebab Menu
+$(".kebab").on("click", function() {
+	$(this).find(".menu").toggle();
 });
 
 //Slideshow Function

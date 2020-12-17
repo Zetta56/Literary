@@ -56,6 +56,8 @@ router.put("/",  middleware.AuthorizedUser, async (req, res) => {
 		res.redirect("back");
 	}
 })
+
+//Change Avatar
 router.put("/avatar", middleware.AuthorizedUser, async (req, res) => {
 	try {
 		let foundUser = await User.findById(req.params.user_id);
@@ -70,7 +72,7 @@ router.put("/avatar", middleware.AuthorizedUser, async (req, res) => {
 	}
 });
 
-//Saves Routes
+//Get saved pieces
 router.get("/saves", middleware.LoggedIn, async (req, res) => {
 	try {
 		let foundUser = await User.findById(req.params.user_id).populate("saves").exec();
@@ -80,6 +82,8 @@ router.get("/saves", middleware.LoggedIn, async (req, res) => {
 		res.redirect("back");
 	};
 });
+
+//Save & unsave pieces
 router.get("/saves/:id", middleware.LoggedIn, async (req, res) => {
 	try {
 		let foundPiece = await Piece.findById(req.params.id);
@@ -89,13 +93,9 @@ router.get("/saves/:id", middleware.LoggedIn, async (req, res) => {
 			return save.equals(foundPiece._id);
 		});
 		if(saved) {
-			//Unsave
-			await foundUser.saves.pull(foundPiece._id);
-			req.flash("error", "Unsaved '" + foundPiece.title + "'");
+			foundUser.saves.pull(foundPiece._id);
 		} else {
-			//Save
-			await foundUser.saves.push(foundPiece._id);
-			req.flash("success", "Saved '" + foundPiece.title + "'");
+			foundUser.saves.push(foundPiece._id);
 		};
 		foundUser.save();
 		res.redirect("back");

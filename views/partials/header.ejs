@@ -13,7 +13,9 @@
 			<div class="computer only row">
 				<div class="ui inverted menu" id="menu">
 					<div class="ui container">
-						<a href="/pieces" class="header item"><i class="fa fa-book"></i>Literary</a>
+						<a href="/pieces" class="header item">
+							<i class="fa fa-book"></i>Literary
+						</a>
 						<div class="right menu">
 							<% if(!currentUser) { %>
 								<a href="/login" class="item">Sign In</a>
@@ -48,7 +50,7 @@
 			<!-- Tablet/Mobile -->
 			<div class="tablet mobile only row">
 				<div class="ui inverted menu" id="menu">
-					<a href="/" class="header item"><i class="fa fa-book"></i>Literary</a>
+					<a href="/pieces" class="header item"><i class="fa fa-book"></i>Literary</a>
 					<% if(currentUser) { %>
 						<div class="ui simple dropdown right aligned item">
 							<i class="far fa-envelope"></i>

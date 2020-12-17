@@ -20,7 +20,7 @@
 #userForm,
 #show #pieceInfo,
 #show #commentSection {
-	background-color: whitesmoke;
+	background-color: #fbfbfb;
 	padding: 30px 40px;
 }
 
@@ -35,17 +35,11 @@
 	display: flex;
 }
 
-#deleteForm,
-#followingBox h3 {
-	display: inline;
-}
-
 .editForm,
 #avatarForm,
 #bottomBar,
 #submenu,
 #topBar,
-#bottomBar .fas,
 #bottomBar .ui.label {
 	display: none;
 }
@@ -129,6 +123,10 @@
 
 /* General */
 
+a {
+	color: #333333;
+}
+
 .textBody {
 	font-size: 20px;
 	padding-top: 20px;
@@ -141,6 +139,29 @@
 
 .ui.button {
 	margin: 10px 0;
+}
+
+.kebab.dropdown .menu {
+	display: none;
+}
+
+.kebab i {
+	color: #555555;
+	font-size: inherit;
+}
+
+.kebab .item {
+	width: 100%;
+}
+
+.kebab button {
+	background-color: transparent;
+	color: inherit;
+	border: none;
+	cursor: pointer;
+	font: inherit;
+	line-height: 100%;
+	padding: 0;
 }
 
 #pagination {
@@ -169,7 +190,7 @@
 /* Pieces Index */
 
 .ui.massive.message {
-	background: linear-gradient(90deg, rgba(210,214,250,0.7) 20%, rgba(212,238,252,0.7) 70%);
+	background: linear-gradient(90deg, rgba(248, 248, 250, 0.7) 25%, rgba(119, 118, 118, 0.7) 80%);
 	padding: 100px 20%;
 }
 
@@ -182,6 +203,7 @@
 }
 
 #gallery .ui.card {
+	background-color: #fbfbfb;
 	min-height: 250px;
 	padding: 14px 0;
 }
@@ -245,21 +267,12 @@
 	margin: 30px auto;
 }
 
-#ownerButtons {
-	text-align: right;
+#show .default-like {
+	filter: brightness(1.25);
 }
 
 #commentSection .ui.avatar.image {
 	margin: 0 10px;
-}
-
-#authMessage {
-	background-color: whiteSmoke;
-	line-height: 100px;
-}
-
-#authMessage a {
-	color: #0066CC;
 }
 
 /* Profile */
@@ -285,6 +298,7 @@
 }
 
 #followingBox h3 {
+	display: inline;
 	font-size: 22px;
 }
 
@@ -342,16 +356,6 @@
 
 .gray {
 	background-color: gray !important;
-}
-
-.liked {
-	color: green !important;
-	display: inline !important;
-}
-
-.saved {
-	color: red !important;
-	display: inline !important;
 }
 
 .shaded {

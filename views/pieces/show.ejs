@@ -5,52 +5,51 @@
 		<div class="fourteen wide column">
 			<!-- Piece Display -->
 			<div id="pieceInfo">
-				<h1><%= piece["title"] %></h1>
+				<h1>
+					<%= piece["title"] %>
+					<!-- Piece Edit & Delete Buttons -->
+					<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
+						<div class="ui kebab dropdown">
+							<i class="fas fa-ellipsis-v"></i>
+							<div class="menu">
+								<a href="/pieces/<%= piece["_id"] %>/edit" class="item">Edit</a>
+								<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST" id="deleteForm" class="item">
+									<button>Delete</button>
+								</form>
+							</div>
+						</div>
+					<% } %>
+				</h1>
+
 				<div class="meta">
 					<em>
 						Submitted By <a href="/users/<%= piece["author"]["id"] %>"><%= piece["author"]["username"] %></a>,
 						<%= moment(piece["created"]).fromNow() %>
 					</em>
 				</div>
-				<span class="ui teal label">#<%= piece["type"] %></span>
+				<span class="ui black label">#<%= piece["type"] %></span>
 				<% piece["tags"].forEach(tag => { %>
 					<% if(tag.length > 0) { %>
 						<span class="ui label">#<%= tag %></span>
 					<% } %>
 				<% }) %>
+
 				<% if(piece.image) { %>
 					<img src="<%= piece["image"] %>" class="ui centered large image">
 				<% } %>
 				<p class="textBody"><%= piece["body"] %></p>
 				<!-- Like & Save Buttons -->
-				<% if(currentUser && piece["likes"].some(like => {
-					return like.equals(currentUser._id);
-				})) { %>
-					<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini green button">Liked!</a>
-				<% } else { %>
-					<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini blue button">Like</a>
-				<% } %>
-				<% if(!currentUser) { %>
-					<% let currentUser = "placeholder" %>
-					<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini pink button">Save</a>
-				<% } %>
 				<% if(currentUser) { %>
-					<% if(currentUser.saves.some(save => {
-						return save.equals(piece._id);
-					})) { %>
+					<% if(piece["likes"].some(like => like.equals(currentUser._id))) { %>
+						<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini blue button">Liked!</a>
+					<% } else { %>
+						<a href="/pieces/<%= piece["_id"] %>/likes" class="ui mini blue default-like button">Like</a>
+					<% } %>
+					<% if(currentUser.saves.some(save => save.equals(piece._id))) { %>
 						<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini red button">Saved!</a>
 					<% } else { %>
 						<a href="/users/<%= currentUser["_id"] %>/saves/<%= piece["_id"] %>" class="ui mini pink button">Save</a>
 					<% } %>
-				<% } %>
-				<!-- Piece Edit & Delete Buttons -->
-				<% if(currentUser && piece["author"]["id"].equals(currentUser._id)) { %>
-					<div id="ownerButtons">
-						<a href="/pieces/<%= piece["_id"] %>/edit" class="ui yellow button">Edit</a>
-						<form action="/pieces/<%= piece["_id"] %>?_method=DELETE" method="POST" id="deleteForm">
-							<button class="ui red button">Delete</button>
-						</form>
-					</div>
 				<% } %>
 			</div>
 			<!-- Add comment form & message -->
@@ -58,7 +57,7 @@
 				<h2>Comments (<%= piece["comments"].length %>)</h2>
 				<% if(currentUser) { %>
 					<form action="/pieces/<%= piece["_id"] %>/comments" method="POST" class="ui form">
-						<button class="ui green button" id="addButton">+ Add Comment</button>
+						<button class="ui blue button" id="addButton">+ Add Comment</button>
 						<textarea placeholder="Type your comment here..." name="comment[body]" required></textarea>
 					</form>
 				<% } else { %>
@@ -77,25 +76,32 @@
 										<a href="/users/<%= comment["author"]["id"]["_id"] %>"><%= comment["author"]["id"]["username"] %></a>
 									</strong>
 									<em>, <%= moment(comment["created"]).fromNow() %></em>
+									<!-- Comment Edit & Delete Buttons -->
+									<% if(currentUser && comment["author"]["id"].equals(currentUser._id)) { %>
+										<div class="ui kebab dropdown">
+											<i class="fas fa-ellipsis-v"></i>
+											<div class="menu">
+												<button class="editButton item">Edit</button>
+												<form 
+													action="/pieces/<%= piece["_id"] %>/comments/<%= comment["id"] %>?_method=DELETE" 
+													method="POST" 
+													class="item"
+												>
+													<button>Delete</button>
+												</form>
+											</div>
+										</div>
+									<% } %>	
 								</div>
 								<div class="description">
 									<p><%= comment["body"] %></p>
 								</div>
-								<!-- Comment Edit & Delete Buttons -->
-								<% if(currentUser && comment["author"]["id"].equals(currentUser._id)) { %>
-									<button class="ui tiny yellow button editButton">Edit</button>
-									<form action="/pieces/<%= piece["_id"] %>/comments/<%= comment["id"] %>?_method=DELETE" 
-										  method="POST" 
-										  id="deleteForm">
-										<button class="ui tiny red button">Delete</button>
-									</form>
-									<form class="ui form editForm" 
-										  action="/pieces/<%= piece["_id"] %>/comments/<%= comment["_id"] %>?_method=PUT" 
-										  method="POST">
-										<textarea name="comment[body]" required><%= comment["body"] %></textarea>
-										<button class="ui mini primary button">Submit</button>
-									</form>
-								<% } %>
+								<form class="ui form editForm" 
+									action="/pieces/<%= piece["_id"] %>/comments/<%= comment["_id"] %>?_method=PUT" 
+									method="POST">
+									<textarea name="comment[body]" required><%= comment["body"] %></textarea>
+									<button class="ui blue button">Submit</button>
+								</form>
 							</div>
 						</div>
 					<% }) %>

@@ -1,7 +1,18 @@
 <%- include("../partials/header") %>
 
 <div id="mainContainer" class="ui container">
-	<h1><%= user["username"] %>'s Profile</h1>
+	<h1>
+		<%= user["username"] %>'s Profile
+		<!-- User Edit Form -->
+		<% if(currentUser && user["_id"].equals(currentUser._id)) { %>
+			<div class="ui kebab dropdown">
+				<i class="fas fa-ellipsis-v"></i>
+				<div class="menu">
+					<a href="/users/<%= user["_id"] %>/edit" class="item">Edit</a>
+				</div>
+			</div>
+		<% } %>
+	</h1>
 	<div class="ui grid">
 		<div class="six wide column">
 			<!-- Avatar Display & Form -->
@@ -44,10 +55,6 @@
 			</div>
 			<br>
 			<p><strong>Email: </strong><%= user["email"] %></p>
-			<!-- User Edit Form -->
-			<% if(currentUser && user["_id"].equals(currentUser._id)) { %>
-				<a href="/users/<%= user["_id"] %>/edit" class="ui right floated yellow button">Edit</a>
-			<% } %>
 		</div>
 	</div>
 	<!-- Submission History -->
