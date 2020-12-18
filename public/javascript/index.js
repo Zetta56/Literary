@@ -34,13 +34,22 @@ $(".editButton").on("click", function() {
 
 //Creating & Removing Tags
 $("#tags").on("keypress", function(event) {
-	if(event.which === 32) {
+	if(event.which === 32 || event.which === 13) {
+		event.preventDefault();
 		let text = $(this).val().replace(/[^\w]/g, "");
 		if(text) {
 			$(this).before("<span class='tag'>" + text + "</span>");
 		};
 		$(this).val("");
 	};
+});
+
+$("#tags").on("blur", function() {
+	let text = $(this).val().replace(/[^\w]/g, "");
+	if(text) {
+		$(this).before("<span class='tag'>" + text + "</span>");
+	};
+	$(this).val("");
 });
 
 $("#tagField").on("click", ".tag", function() {
