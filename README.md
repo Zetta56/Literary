@@ -1,4 +1,7 @@
 # Literary
+
+![Home Page](/docs/images/home.PNG)
+
 A web app that allows users to create and share pieces of literature with others.
 
 ## Requirements
